@@ -54,5 +54,25 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = service('session');
+
+        // Load notification count for logged-in users
+        $this->loadNotificationData();
+    }
+
+    /**
+     * Load notification data for the current user
+     */
+    protected function loadNotificationData()
+    {
+        $session = service('session');
+        $userId = $session->get('user_id');
+
+        if ($userId) {
+            $notificationModel = new \App\Models\NotificationModel();
+            $unreadCount = $notificationModel->getUnreadCount($userId);
+            $this->notificationCount = $unreadCount;
+        } else {
+            $this->notificationCount = 0;
+        }
     }
 }

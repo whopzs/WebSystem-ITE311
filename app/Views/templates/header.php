@@ -125,6 +125,28 @@ function renderSidebar($role, $menus, $currentRoute) {
             <!-- Right-side Menu -->
             <ul class="navbar-nav ms-auto">
                 <?php if ($session->get('isLoggedIn')): ?>
+                    <!-- Notifications Dropdown -->
+                    <li class="nav-item dropdown me-3">
+                        <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-bell"></i>
+                            <?php if (isset($notificationCount) && $notificationCount > 0): ?>
+                                <span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">
+                                    <?= $notificationCount ?>
+                                </span>
+                            <?php endif; ?>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" id="notifications-dropdown">
+                            <li><h6 class="dropdown-header">Notifications</h6></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li id="notifications-list">
+                                <!-- Notifications will be loaded here via AJAX -->
+                            </li>
+                            <li id="no-notifications" style="display: none;">
+                                <a class="dropdown-item text-muted">No notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>
@@ -151,5 +173,99 @@ function renderSidebar($role, $menus, $currentRoute) {
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <?php if ($session->get('isLoggedIn')): ?>
+    <script>
+    $(document).ready(function() {
+        // Load notifications on page load
+        loadNotifications();
+
+        // Refresh notifications every 60 seconds
+        setInterval(loadNotifications, 60000);
+    });
+
+    function loadNotifications() {
+        $.get('<?= base_url('notifications') ?>')
+            .done(function(response) {
+                if (response.success) {
+                    updateNotificationBadge(response.unread_count);
+                    updateNotificationList(response.notifications);
+                }
+            })
+            .fail(function() {
+                console.error('Failed to load notifications');
+            });
+    }
+
+    function updateNotificationBadge(count) {
+        const badge = $('.nav-link .badge');
+        if (count > 0) {
+            if (badge.length) {
+                badge.text(count);
+            } else {
+                $('.nav-link:has(.bi-bell)').append('<span class="badge bg-danger position-absolute top-0 start-100 translate-middle rounded-pill">' + count + '</span>');
+            }
+        } else {
+            badge.remove();
+        }
+    }
+
+    function updateNotificationList(notifications) {
+        const list = $('#notifications-list');
+        const noNotifications = $('#no-notifications');
+
+        list.empty();
+
+        if (notifications.length === 0) {
+            noNotifications.show();
+            return;
+        }
+
+        noNotifications.hide();
+
+        notifications.forEach(function(notification) {
+            const notificationItem = `
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <div class="alert alert-info p-2 mb-0 flex-grow-1 me-2" style="font-size: 0.875rem;">
+                        ${notification.message}
+                        <br><small class="text-muted">${formatDate(notification.created_at)}</small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-primary" onclick="markAsRead(${notification.id})">
+                        <i class="bi bi-check"></i>
+                    </button>
+                </div>
+            `;
+            list.append(notificationItem);
+        });
+    }
+
+    function markAsRead(notificationId) {
+        $.post('<?= base_url('notifications/mark_read') ?>/' + notificationId)
+            .done(function(response) {
+                if (response.success) {
+                    loadNotifications(); // Reload notifications
+                }
+            })
+            .fail(function() {
+                console.error('Failed to mark notification as read');
+            });
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        const now = new Date();
+        const diff = now - date;
+
+        const minutes = Math.floor(diff / 60000);
+        const hours = Math.floor(diff / 3600000);
+        const days = Math.floor(diff / 86400000);
+
+        if (minutes < 1) return 'Just now';
+        if (minutes < 60) return minutes + ' minutes ago';
+        if (hours < 24) return hours + ' hours ago';
+        return days + ' days ago';
+    }
+    </script>
+    <?php endif; ?>
 </body>
 </html>

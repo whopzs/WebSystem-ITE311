@@ -382,7 +382,7 @@
 
 <div class="row" id="courses">
     <!-- Enrolled Courses -->
-    <div class="col-lg-6">
+    <div class="col-lg-6" id="enrolled-courses">
         <div class="card shadow">
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">Enrolled Courses</h6>

@@ -45,7 +45,20 @@ class Course extends BaseController
         ];
 
         if ($enrollmentModel->enrollUser($data)) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course']);
+            // Get the enrollment date from the data
+            $enrollment_date = $data['enrollment_date'];
+
+            // Create notification for successful enrollment
+            $notificationModel = new \App\Models\NotificationModel();
+            $notificationData = [
+                'user_id' => $user_id,
+                'message' => "You have been enrolled in {$course['title']}",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($notificationData);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course', 'enrollment_date' => $enrollment_date]);
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to enroll']);
         }
