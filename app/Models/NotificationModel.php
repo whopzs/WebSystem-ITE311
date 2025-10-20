@@ -9,8 +9,7 @@ class NotificationModel extends Model
     protected $table = 'notifications';
     protected $primaryKey = 'id';
     protected $allowedFields = ['user_id', 'message', 'is_read', 'created_at'];
-    protected $useTimestamps = true;
-    protected $createdField = 'created_at';
+    protected $useTimestamps = false;
 
     /**
      * Get unread notification count for a user
