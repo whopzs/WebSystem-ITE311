@@ -180,8 +180,13 @@ function renderSidebar($role, $menus, $currentRoute) {
         // Load notifications on page load
         loadNotifications();
 
-        // Refresh notifications every 60 seconds
-        setInterval(loadNotifications, 60000);
+        // Refresh notifications every 10 seconds for near real-time updates
+        setInterval(loadNotifications, 10000);
+
+        // Also refresh when dropdown is shown for latest count
+        $('.nav-link:has(.bi-bell)').parent().on('shown.bs.dropdown', function() {
+            loadNotifications();
+        });
     });
 
     function loadNotifications() {
@@ -240,15 +245,70 @@ function renderSidebar($role, $menus, $currentRoute) {
     }
 
     function markAsRead(notificationId) {
-        $.post('<?= base_url('notifications/mark_read') ?>/' + notificationId)
-            .done(function(response) {
+        // Try to get CSRF token from the page (it should be available globally in CodeIgniter)
+        var csrfToken = '<?= csrf_hash() ?>';
+
+        if (!csrfToken) {
+            console.error('CSRF token not found');
+            return;
+        }
+
+        // Find and remove the notification item immediately for better UX
+        var notificationItem = $('button[onclick="markAsRead(' + notificationId + ')"]').closest('.d-flex');
+        var originalContent = notificationItem.html();
+
+        // Show loading state
+        notificationItem.html('<div class="text-center text-muted"><small>Marking as read...</small></div>');
+
+        $.ajax({
+            url: '<?= base_url('notifications/mark_read') ?>/' + notificationId,
+            type: 'POST',
+            data: {
+                csrf_token_name: csrfToken
+            },
+            headers: {
+                'X-CSRF-TOKEN': csrfToken,
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            success: function(response) {
                 if (response.success) {
-                    loadNotifications(); // Reload notifications
+                    // Remove the notification item from the UI
+                    notificationItem.fadeOut(300, function() {
+                        $(this).remove();
+
+                        // Check if there are any notifications left
+                        var remainingNotifications = $('#notifications-list .d-flex').length;
+                        if (remainingNotifications === 0) {
+                            $('#no-notifications').show();
+                        }
+
+                        // Update badge count
+                        var currentBadge = $('.nav-link .badge');
+                        if (currentBadge.length) {
+                            var currentCount = parseInt(currentBadge.text());
+                            if (currentCount > 1) {
+                                currentBadge.text(currentCount - 1);
+                            } else {
+                                currentBadge.remove();
+                            }
+                        }
+                    });
+                } else {
+                    // Restore original content on error
+                    notificationItem.html(originalContent);
+                    console.error('Server response:', response.message);
                 }
-            })
-            .fail(function() {
-                console.error('Failed to mark notification as read');
-            });
+            },
+            error: function(xhr, status, error) {
+                // Restore original content on error
+                notificationItem.html(originalContent);
+                console.error('Failed to mark notification as read:', error);
+                console.error('Status:', status);
+                console.error('Response:', xhr.responseText);
+                console.error('CSRF Token used:', csrfToken);
+                console.error('Response headers:', xhr.getAllResponseHeaders());
+            }
+        });
     }
 
     function formatDate(dateString) {

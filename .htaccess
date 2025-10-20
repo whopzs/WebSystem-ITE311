@@ -11,8 +11,8 @@ Options -Indexes
 		Options +FollowSymLinks
 		RewriteEngine On
 
-		# Deny access to app directory
-		RewriteRule ^app - [F,L]
+		# Deny access to sensitive app directories and files
+		RewriteRule ^app/(Config|Database|Commands|Filters|Helpers|Language|Libraries|ThirdParty) - [F,L]
 
 		# Block directory traversal attempts
 		RewriteRule \.\. - [F,L]

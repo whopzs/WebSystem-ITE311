@@ -73,7 +73,7 @@ class Filters extends BaseFilters
     public array $globals = [
         'before' => [
             // 'honeypot',
-             'csrf' => ['except' => ['course/enroll']]
+             'csrf' => ['except' => ['course/enroll', 'notifications/mark_read/*']]
             // 'invalidchars',
         ],
         'after' => [

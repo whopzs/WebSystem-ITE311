@@ -22,11 +22,12 @@ class NotificationModel extends Model
     }
 
     /**
-     * Get latest notifications for a user (limit 5)
+     * Get latest unread notifications for a user (limit 5)
      */
     public function getNotificationsForUser($userId)
     {
         return $this->where('user_id', $userId)
+                    ->where('is_read', 0)
                     ->orderBy('created_at', 'DESC')
                     ->limit(5)
                     ->find();
