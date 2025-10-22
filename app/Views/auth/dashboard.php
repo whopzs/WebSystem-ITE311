@@ -364,7 +364,6 @@
                 <h6 class="m-0 font-weight-bold text-white">
                     <i class="bi bi-megaphone me-2"></i>Announcements
                 </h6>
-                <a href="#" class="btn btn-sm btn-outline-light">View All</a>
             </div>
             <div class="card-body">
                 <?php if (isset($announcements)): ?>
@@ -402,7 +401,7 @@
                                 <small class="text-muted">Enrolled on: <?= date('M d, Y', strtotime($course['enrollment_date'])) ?></small>
                             </div>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-sm btn-outline-maroon">View</a>
+                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;">View</a>
                             </div>
                         </div>
                     <?php endforeach; ?>
@@ -431,7 +430,7 @@
                                 <p class="mb-1 text-muted small"><?= esc($course['description']) ?></p>
                             </div>
                             <div class="flex-shrink-0">
-                                <button class="btn btn-sm btn-outline-maroon enroll-btn" data-course-id="<?= $course['id'] ?>">Enroll</button>
+                               <button class="btn btn-sm enroll-btn" style="background-color: maroon; color: white; border: 1px solid maroon;" data-course-id="<?= $course['id'] ?>">Enroll</button>
                             </div>
                         </div>
                     <?php endforeach; ?>

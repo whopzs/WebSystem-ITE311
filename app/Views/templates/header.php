@@ -180,10 +180,9 @@ function renderSidebar($role, $menus, $currentRoute) {
         // Load notifications on page load
         loadNotifications();
 
-        // Refresh notifications every 10 seconds for near real-time updates
-        setInterval(loadNotifications, 10000);
+        // Refresh notifications every 5 seconds
+        setInterval(loadNotifications, 5000);
 
-        // Also refresh when dropdown is shown for latest count
         $('.nav-link:has(.bi-bell)').parent().on('shown.bs.dropdown', function() {
             loadNotifications();
         });
@@ -225,9 +224,7 @@ function renderSidebar($role, $menus, $currentRoute) {
             noNotifications.show();
             return;
         }
-
         noNotifications.hide();
-
         notifications.forEach(function(notification) {
             const notificationItem = `
                 <div class="d-flex justify-content-between align-items-start mb-2">
@@ -245,15 +242,13 @@ function renderSidebar($role, $menus, $currentRoute) {
     }
 
     function markAsRead(notificationId) {
-        // Try to get CSRF token from the page (it should be available globally in CodeIgniter)
+        // Try to get CSRF token from the page
         var csrfToken = '<?= csrf_hash() ?>';
 
         if (!csrfToken) {
             console.error('CSRF token not found');
             return;
         }
-
-        // Find and remove the notification item immediately for better UX
         var notificationItem = $('button[onclick="markAsRead(' + notificationId + ')"]').closest('.d-flex');
         var originalContent = notificationItem.html();
 
@@ -275,13 +270,10 @@ function renderSidebar($role, $menus, $currentRoute) {
                     // Remove the notification item from the UI
                     notificationItem.fadeOut(300, function() {
                         $(this).remove();
-
-                        // Check if there are any notifications left
                         var remainingNotifications = $('#notifications-list .d-flex').length;
                         if (remainingNotifications === 0) {
                             $('#no-notifications').show();
                         }
-
                         // Update badge count
                         var currentBadge = $('.nav-link .badge');
                         if (currentBadge.length) {
