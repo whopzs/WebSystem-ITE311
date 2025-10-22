@@ -162,9 +162,11 @@ class Auth extends BaseController
             }
 
             $data['teacherCourses'] = $teacherCourses;
-            $data['notifications'] = [
-                 ['id' => 1, 'message' => 'New assignment submitted by John Doe', 'time' => '2 hours ago', 'type' => 'assignment'],
-            ];
+
+            // Fetch real notifications for the teacher
+            $notificationModel = new \App\Models\NotificationModel();
+            $data['notifications'] = $notificationModel->getNotificationsForUser($user_id);
+            $data['unreadCount'] = $notificationModel->getUnreadCount($user_id);
         } elseif ($role === 'student') {
             $enrollmentModel = new \App\Models\EnrollmentModel();
             $courseModel = new \App\Models\CourseModel();

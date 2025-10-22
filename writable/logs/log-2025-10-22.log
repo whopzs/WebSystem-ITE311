@@ -1,0 +1,14 @@
+CRITICAL - 2025-10-22 23:28:44 --> ErrorException: Undefined array key "type"
+[Method: GET, Route: dashboard]
+in APPPATH\Views\auth\dashboard.php on line 264.
+ 1 APPPATH\Views\auth\dashboard.php(264): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined array key "type"', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\auth\\dashboard.php', 264)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\auth\\dashboard.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/dashboard', [], true)
+ 5 APPPATH\Controllers\Auth.php(204): view('auth/dashboard', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->dashboard()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

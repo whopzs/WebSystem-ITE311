@@ -258,20 +258,33 @@
                 <h6 class="m-0 font-weight-bold text-white">Recent Notifications</h6>
             </div>
             <div class="card-body">
-                <?php foreach ($notifications as $notification): ?>
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="flex-shrink-0">
-                            <i class="bi bi-<?= $notification['type'] === 'assignment' ? 'file-earmark-text' : ($notification['type'] === 'help' ? 'question-circle' : 'person-plus') ?> text-white"></i>
+                <?php if (!empty($notifications)): ?>
+                    <?php foreach ($notifications as $notification): ?>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <i class="bi bi-bell text-white"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <div class="small text-gray-800">
+                                    <?= esc($notification['message']) ?>
+                                    <?php if ($notification['is_read'] == 0): ?>
+                                    <?php endif; ?>
+                                </div>
+                                <div class="small text-muted">
+                                    <?= date('M d, Y H:i', strtotime($notification['created_at'])) ?>
+                                </div>
+                            </div>
                         </div>
-                        <div class="flex-grow-1 ms-3">
-                            <div class="small text-gray-800"><?= esc($notification['message']) ?></div>
-                            <div class="small text-muted"><?= esc($notification['time']) ?></div>
-                        </div>
+                    <?php endforeach; ?>
+                    <div class="text-center mt-3">
+                        <a href="#" class="btn btn-sm btn-outline-maroon">View All</a>
                     </div>
-                <?php endforeach; ?>
-                <div class="text-center mt-3">
-                    <a href="#" class="btn btn-sm btn-outline-maroon">View All</a>
-                </div>
+                <?php else: ?>
+                    <div class="text-center text-muted">
+                        <i class="bi bi-bell-slash fa-2x mb-3 text-muted"></i>
+                        <p>No notifications yet.</p>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

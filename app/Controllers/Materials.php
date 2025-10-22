@@ -64,6 +64,19 @@ class Materials extends BaseController
                 ];
 
                 if ($materialModel->insertMaterial($data)) {
+                    // Notify all enrolled students about the new material
+                    $enrollmentModel = new EnrollmentModel();
+                    $enrollments = $enrollmentModel->where('course_id', $course_id)->findAll();
+                    $notificationModel = new \App\Models\NotificationModel();
+                    foreach ($enrollments as $enrollment) {
+                        $notificationModel->insert([
+                            'user_id' => $enrollment['user_id'],
+                            'message' => "New material available for course: {$course['title']}",
+                            'is_read' => 0,
+                            'created_at' => date('Y-m-d H:i:s')
+                        ]);
+                    }
+
                     return redirect()->back()->with('upload_success', 'Material uploaded successfully');
                 } else {
 
