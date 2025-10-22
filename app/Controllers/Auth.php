@@ -50,6 +50,18 @@ class Auth extends BaseController
                 return redirect()->back()->withInput()->with('register_error', 'Registration failed.');
             }
 
+            // Notify all admins about the new registration
+            $adminUsers = $userModel->where('role', 'admin')->findAll();
+            $notificationModel = new \App\Models\NotificationModel();
+            foreach ($adminUsers as $admin) {
+                $notificationModel->insert([
+                    'user_id' => $admin['id'],
+                    'message' => "New user {$name} ({$email}) has registered.",
+                    'is_read' => 0,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+
             return redirect()
                 ->to(base_url('login'))
                 ->with('register_success', 'Account created successfully. Please log in.');

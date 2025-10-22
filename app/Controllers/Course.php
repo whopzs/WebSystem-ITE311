@@ -48,7 +48,7 @@ class Course extends BaseController
             // Get the enrollment date from the data
             $enrollment_date = $data['enrollment_date'];
 
-            // Create notification for successful enrollment
+            // Create notification for successful enrollment for the student
             $notificationModel = new \App\Models\NotificationModel();
             $notificationData = [
                 'user_id' => $user_id,
@@ -57,6 +57,18 @@ class Course extends BaseController
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $notificationModel->insert($notificationData);
+
+            // Notify the teacher about the new enrollment
+            $userModel = new \App\Models\UserModel();
+            $student = $userModel->find($user_id);
+            $studentName = $student['name'];
+            $teacherNotification = [
+                'user_id' => $course['instructor_id'],
+                'message' => "Student {$studentName} has enrolled in your course: {$course['title']}",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($teacherNotification);
 
             return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course', 'enrollment_date' => $enrollment_date]);
         } else {
