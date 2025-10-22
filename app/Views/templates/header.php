@@ -227,14 +227,21 @@ function renderSidebar($role, $menus, $currentRoute) {
         noNotifications.hide();
         notifications.forEach(function(notification) {
             const notificationItem = `
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <div class="alert alert-info p-2 mb-0 flex-grow-1 me-2" style="font-size: 0.875rem;">
-                        ${notification.message}
-                        <br><small class="text-muted">${formatDate(notification.created_at)}</small>
+                <div class="notification-item d-flex justify-content-between align-items-start mb-3 p-3 border-bottom border-light">
+                    <div class="flex-grow-1 me-4" style="min-width: 0;">
+                        <div class="notification-message text-dark fw-semibold mb-2" style="font-size: 0.9rem; line-height: 1.4; word-wrap: break-word; overflow-wrap: break-word;">
+                            ${notification.message}
+                        </div>
+                        <div class="notification-time text-muted d-flex align-items-center" style="font-size: 0.75rem;">
+                            <i class="bi bi-clock me-2"></i>${formatDate(notification.created_at)}
+                        </div>
                     </div>
-                    <button class="btn btn-sm btn-outline-primary" onclick="markAsRead(${notification.id})">
-                        <i class="bi bi-check"></i>
-                    </button>
+                    <div class="flex-shrink-0 ms-3">
+                        <button class="btn btn-sm mark-read-btn d-flex align-items-center" onclick="markAsRead(${notification.id})"
+                                style="background-color: #800000; border-color: #800000; color: white; font-size: 0.8rem; padding: 0.5rem 1rem; border-radius: 0.375rem; transition: all 0.2s ease; white-space: nowrap;">
+                            <i class="bi bi-check me-2"></i>mark as read
+                        </button>
+                    </div>
                 </div>
             `;
             list.append(notificationItem);
@@ -249,7 +256,7 @@ function renderSidebar($role, $menus, $currentRoute) {
             console.error('CSRF token not found');
             return;
         }
-        var notificationItem = $('button[onclick="markAsRead(' + notificationId + ')"]').closest('.d-flex');
+        var notificationItem = $('button[onclick="markAsRead(' + notificationId + ')"]').closest('.notification-item');
         var originalContent = notificationItem.html();
 
         // Show loading state
@@ -270,7 +277,7 @@ function renderSidebar($role, $menus, $currentRoute) {
                     // Remove the notification item from the UI
                     notificationItem.fadeOut(300, function() {
                         $(this).remove();
-                        var remainingNotifications = $('#notifications-list .d-flex').length;
+                        var remainingNotifications = $('#notifications-list .notification-item').length;
                         if (remainingNotifications === 0) {
                             $('#no-notifications').show();
                         }
