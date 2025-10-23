@@ -392,6 +392,8 @@
     </div>
 </div>
 
+<?php $materialModel = new \App\Models\MaterialModel(); ?>
+
 <div class="row" id="courses">
     <!-- Enrolled Courses -->
     <div class="col-lg-6" id="enrolled-courses">
@@ -409,14 +411,42 @@
                                 <i class="bi bi-book text-maroon fa-2x"></i>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="mb-1"><?= esc($course['title']) ?></h6>
-                                <p class="mb-1 text-muted small"><?= esc($course['description']) ?></p>
+                                <h6 class="mb-1"> <?= esc($course['title']) ?></h6>
+                                <p class="mb-1 text-muted small"> <?= esc($course['description']) ?></p>
                                 <small class="text-muted">Enrolled on: <?= date('M d, Y', strtotime($course['enrollment_date'])) ?></small>
                             </div>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;">View</a>
+                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(<?= $course['id'] ?>); return false;">View</a>
                             </div>
                         </div>
+                        <?php
+                        $materials = $materialModel->getMaterialsByCourse($course['course_id']);
+                        if (!empty($materials)):
+                        ?>
+                            <div class="materials-section" id="materials-<?= $course['id'] ?>" style="display: none;">
+                                <div class="mb-4">
+                                    <h6 class="text-maroon mb-3"> <?= esc($course['title']) ?> Materials</h6>
+                                    <div class="row">
+                                        <?php foreach ($materials as $material): ?>
+                                            <div class="col-md-6 col-lg-4 mb-3">
+                                                <div class="card h-100">
+                                                    <div class="card-body d-flex flex-column">
+                                                        <div class="d-flex align-items-center mb-2">
+                                                            <i class="bi bi-file-earmark-text text-maroon me-2"></i>
+                                                            <h6 class="card-title mb-0 small"> <?= esc($material['file_name']) ?></h6>
+                                                        </div>
+                                                        <small class="text-muted mb-3">Uploaded: <?= date('M d, Y', strtotime($material['created_at'])) ?></small>
+                                                        <a href=" <?= base_url('materials/download/' . $material['id']) ?>" class="btn btn-outline-maroon btn-sm mt-auto">
+                                                            <i class="bi bi-download me-1"></i>Download
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
@@ -453,55 +483,7 @@
     </div>
 </div>
 
-<!-- Course Materials -->
-<div class="row mt-4" id="course-materials">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-white">Course Materials</h6>
-            </div>
-            <div class="card-body">
-                <?php
-                $materialModel = new \App\Models\MaterialModel();
-                $hasMaterials = false;
-                foreach ($enrolledCourses as $course):
-                    $materials = $materialModel->getMaterialsByCourse($course['course_id']);
-                    if (!empty($materials)):
-                        $hasMaterials = true;
-                ?>
-                    <div class="mb-4">
-                        <h6 class="text-maroon mb-3"><?= esc($course['title']) ?> Materials</h6>
-                        <div class="row">
-                            <?php foreach ($materials as $material): ?>
-                                <div class="col-md-6 col-lg-4 mb-3">
-                                    <div class="card h-100">
-                                        <div class="card-body d-flex flex-column">
-                                            <div class="d-flex align-items-center mb-2">
-                                                <i class="bi bi-file-earmark-text text-maroon me-2"></i>
-                                                <h6 class="card-title mb-0 small"><?= esc($material['file_name']) ?></h6>
-                                            </div>
-                                            <small class="text-muted mb-3">Uploaded: <?= date('M d, Y', strtotime($material['created_at'])) ?></small>
-                                            <a href="<?= base_url('materials/download/' . $material['id']) ?>" class="btn btn-outline-maroon btn-sm mt-auto">
-                                                <i class="bi bi-download me-1"></i>Download
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php endforeach; ?>
-                        </div>
-                    </div>
-                <?php
-                    endif;
-                endforeach;
 
-                if (!$hasMaterials):
-                ?>
-                    <p class="text-muted text-center">No materials available for your enrolled courses yet.</p>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="row">
 
@@ -581,6 +563,19 @@
 </div>
 
 <script>
+function showMaterials(courseId) {
+    var materialsDiv = document.getElementById('materials-' + courseId);
+    if (materialsDiv) {
+        if (materialsDiv.style.display === 'none' || materialsDiv.style.display === '') {
+            materialsDiv.style.display = 'block';
+        } else {
+            materialsDiv.style.display = 'none';
+        }
+    } else {
+        alert('No materials available for this course.');
+    }
+}
+
 $(document).ready(function() {
     $('.enroll-btn').on('click', function(e) {
         e.preventDefault();
