@@ -419,11 +419,11 @@
                                 <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(<?= $course['id'] ?>); return false;">View</a>
                             </div>
                         </div>
-                        <?php
-                        $materials = $materialModel->getMaterialsByCourse($course['course_id']);
-                        if (!empty($materials)):
-                        ?>
-                            <div class="materials-section" id="materials-<?= $course['id'] ?>" style="display: none;">
+                        <div class="materials-section" id="materials-<?= $course['id'] ?>" style="display: none;">
+                            <?php
+                            $materials = $materialModel->getMaterialsByCourse($course['course_id']);
+                            if (!empty($materials)):
+                            ?>
                                 <div class="mb-4">
                                     <h6 class="text-maroon mb-3"> <?= esc($course['title']) ?> Materials</h6>
                                     <div class="row">
@@ -445,8 +445,14 @@
                                         <?php endforeach; ?>
                                     </div>
                                 </div>
+                            <?php endif; ?>
+                        </div>
+                        <div class="no-materials-message" id="no-materials-<?= $course['id'] ?>" style="display: none;">
+                            <div class="text-center text-muted">
+                                <i class="bi bi-file-earmark-x fa-2x mb-3 text-muted"></i>
+                                <p>No materials available for this course yet.</p>
                             </div>
-                        <?php endif; ?>
+                        </div>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
@@ -564,15 +570,23 @@
 
 <script>
 function showMaterials(courseId) {
-    var materialsDiv = document.getElementById('materials-' + courseId);
-    if (materialsDiv) {
-        if (materialsDiv.style.display === 'none' || materialsDiv.style.display === '') {
-            materialsDiv.style.display = 'block';
+    var materialsDiv = $('#materials-' + courseId);
+    var noMaterialsDiv = $('#no-materials-' + courseId);
+
+    if (materialsDiv.children().length > 0) {
+        if (materialsDiv.is(':visible')) {
+            materialsDiv.hide();
         } else {
-            materialsDiv.style.display = 'none';
+            materialsDiv.show();
         }
+        noMaterialsDiv.hide();
     } else {
-        alert('No materials available for this course.');
+        if (noMaterialsDiv.is(':visible')) {
+            noMaterialsDiv.hide();
+        } else {
+            noMaterialsDiv.show();
+        }
+        materialsDiv.hide();
     }
 }
 
