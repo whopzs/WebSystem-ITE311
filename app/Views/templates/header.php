@@ -14,6 +14,7 @@ $menus = [
     ],
     'teacher' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
+        ['route' => 'announcements/create', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
         ['route' => 'dashboard#courses', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'teacher/assignment', 'icon' => 'bi-pencil-square', 'label' => 'Assignments'],
         ['route' => 'teacher/grades', 'icon' => 'bi-mortarboard', 'label' => 'Grades'],
@@ -21,6 +22,7 @@ $menus = [
     ],
     'student' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
+        ['route' => 'announcements', 'icon' => 'bi-megaphone', 'label' => 'Announcements'],
         ['route' => 'dashboard#courses', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'student/assignment', 'icon' => 'bi-pencil-square', 'label' => 'Assignments'],
         ['route' => 'student/settings', 'icon' => 'bi-gear', 'label' => 'Settings'],

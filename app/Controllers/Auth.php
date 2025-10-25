@@ -9,7 +9,12 @@ class Auth extends BaseController
     {
         $session = session();
         if ($session->get('isLoggedIn')) {
-            return $this->redirectBasedOnRole($session->get('userRole'));
+            $role = $session->get('userRole');
+            if ($role === 'student') {
+                return redirect()->to(base_url('announcements'));
+            } else {
+                return redirect()->to(base_url('dashboard'));
+            }
         }
 
         // Process form submission (POST)
@@ -75,7 +80,12 @@ class Auth extends BaseController
         $session = session();
 
         if ($session->get('isLoggedIn')) {
-            return redirect()->to(base_url('dashboard'));
+            $role = $session->get('userRole');
+            if ($role === 'student') {
+                return redirect()->to(base_url('announcements'));
+            } else {
+                return redirect()->to(base_url('dashboard'));
+            }
         }
          // Process form submission (POST)
            if ($this->request->getMethod() === 'POST') {
@@ -94,8 +104,12 @@ class Auth extends BaseController
                        'user_id' => $user['id'],
                    ]);
 
-                   // Redirect to unified dashboard
-                   return redirect()->to(base_url('dashboard'));
+                   // Redirect based on role
+                   if ($user['role'] === 'student') {
+                       return redirect()->to(base_url('announcements'));
+                   } else {
+                       return redirect()->to(base_url('dashboard'));
+                   }
                }
        
                return redirect()->back()->with('login_error', 'Invalid credentials');
@@ -170,7 +184,6 @@ class Auth extends BaseController
         } elseif ($role === 'student') {
             $enrollmentModel = new \App\Models\EnrollmentModel();
             $courseModel = new \App\Models\CourseModel();
-            $announcementModel = new \App\Models\AnnouncementModel();
             $user_id = $session->get('user_id');
 
             // Get enrolled courses
@@ -188,9 +201,6 @@ class Auth extends BaseController
                 return !in_array($course['id'], $enrolledCourseIds);
             });
             $data['availableCourses'] = array_values($availableCourses);
-
-            // Get announcements for dashboard
-            $data['announcements'] = $announcementModel->orderBy('created_at', 'DESC')->findAll();
 
             // Dummy data for other sections (can be updated later)
             $data['upcomingDeadlines'] = [

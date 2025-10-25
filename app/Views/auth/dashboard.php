@@ -369,28 +369,7 @@
     </div>
 </div>
 
-<!-- Announcements - First thing students see after login -->
-<div class="row mb-4" id="announcements">
-    <div class="col-12">
-        <div class="card shadow">
-            <div class="card-header py-3 d-flex justify-content-between align-items-center">
-                <h6 class="m-0 font-weight-bold text-white">
-                    <i class="bi bi-megaphone me-2"></i>Announcements
-                </h6>
-            </div>
-            <div class="card-body">
-                <?php if (isset($announcements)): ?>
-                    <?= view('announcements', ['announcements' => $announcements]) ?>
-                <?php else: ?>
-                    <div class="text-center text-muted">
-                        <i class="bi bi-megaphone fa-2x mb-3 text-muted"></i>
-                        <p>No announcements available at the moment.</p>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <?php $materialModel = new \App\Models\MaterialModel(); ?>
 
@@ -416,10 +395,10 @@
                                 <small class="text-muted">Enrolled on: <?= date('M d, Y', strtotime($course['enrollment_date'])) ?></small>
                             </div>
                             <div class="flex-shrink-0">
-                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(<?= $course['id'] ?>); return false;">View</a>
+                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(<?= $course['course_id'] ?>); return false;">View</a>
                             </div>
                         </div>
-                        <div class="materials-section" id="materials-<?= $course['id'] ?>" style="display: none;">
+                        <div class="materials-section" id="materials-<?= $course['course_id'] ?>" style="display: none;">
                             <?php
                             $materials = $materialModel->getMaterialsByCourse($course['course_id']);
                             if (!empty($materials)):
@@ -447,7 +426,7 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-                        <div class="no-materials-message" id="no-materials-<?= $course['id'] ?>" style="display: none;">
+                        <div class="no-materials-message" id="no-materials-<?= $course['course_id'] ?>" style="display: none;">
                             <div class="text-center text-muted">
                                 <i class="bi bi-file-earmark-x fa-2x mb-3 text-muted"></i>
                                 <p>No materials available for this course yet.</p>
@@ -631,7 +610,7 @@ $(document).ready(function() {
                         '<p class="mb-1 text-muted small">' + courseDesc + '</p>' +
                         '<small class="text-muted">Enrolled on: ' + new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) + '</small>' +
                         '</div>' +
-                        '<div class="flex-shrink-0"><a href="#" class="btn btn-sm btn-outline-maroon">View</a></div>' +
+                        '<div class="flex-shrink-0"><a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(' + courseId + '); return false;">View</a></div>' +
                         '</div>';
 
                     $('#enrolled-courses .card-body').append(enrolledHtml);
