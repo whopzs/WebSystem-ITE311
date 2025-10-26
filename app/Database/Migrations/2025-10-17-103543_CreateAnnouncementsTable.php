@@ -31,6 +31,11 @@ class CreateAnnouncementsTable extends Migration
                 'unsigned' => true,
                 'null' => true
             ],
+            'role' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50',
+                'null' => true
+            ],
             'created_at' => [
                 'type' => 'DATETIME',
                 'null' => true

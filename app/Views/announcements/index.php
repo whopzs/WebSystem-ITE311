@@ -17,8 +17,16 @@
     <div class="row">
         <div class="col-12">
             <div class="card shadow">
-                <div class="card-header py-3">
+                <div class="card-header py-3 d-flex justify-content-between align-items-center">
                     <h6 class="m-0 font-weight-bold text-white">Announcements</h6>
+
+                <?php if (session()->get('userRole') === 'teacher' || session()->get('userRole') === 'admin'): ?>
+                    <a href="<?= base_url('announcements/create') ?>" 
+                    class="btn btn-sm d-flex align-items-center" 
+                    style="background-color: maroon; color: white; border: 1px solid maroon;">
+                    <i class="bi bi-plus-circle me-1"></i>Create Announcement
+                  </a>
+                      <?php endif; ?>
                 </div>
                 <div class="card-body">
                     <?php if (empty($announcements)): ?>
@@ -26,9 +34,9 @@
                             <i class="bi bi-megaphone fa-2x mb-3 text-muted"></i>
                             <p>
                                 <?php if (session()->get('userRole') === 'student'): ?>
-                                    No announcements available for your enrolled courses at the moment.
+                                    No announcements available for at the moment.
                                 <?php elseif (session()->get('userRole') === 'teacher'): ?>
-                                    No announcements available for your courses at the moment.
+                                    No announcements available at the moment.
                                 <?php else: ?>
                                     No announcements available at the moment.
                                 <?php endif; ?>
@@ -43,11 +51,12 @@
                                 <div class="flex-grow-1">
                                     <h6 class="mb-1 text-maroon fw-bold">
                                         <?= esc($announcement['title']) ?>
-                                        <?php if (isset($announcement['course_title']) && $announcement['course_title'] !== 'General'): ?>
+                                        <?php if (isset($announcement['course_title'])): ?>
                                             <small class="text-muted">(<?= esc($announcement['course_title']) ?>)</small>
                                         <?php endif; ?>
                                     </h6>
                                     <div class="text-muted small mb-2">
+                                        Author: <strong><?= esc($announcement['author_name'] ?? 'Unknown Author') ?></strong><br>
                                         Posted on: <?= date('M d, Y, g:i a', strtotime($announcement['created_at'])) ?>
                                     </div>
                                     <div class="announcement-content">

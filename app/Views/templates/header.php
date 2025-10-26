@@ -8,13 +8,14 @@ $userRole = $session->get('userRole'); // Role saved in session
 $menus = [
     'admin' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
+        ['route' => 'announcements/create', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
         ['route' => 'admin/users', 'icon' => 'bi-people', 'label' => 'Users'],
         ['route' => 'dashboard#course', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'admin/settings', 'icon' => 'bi-gear', 'label' => 'Settings'],
     ],
     'teacher' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
-        ['route' => 'announcements/create', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
+        ['route' => 'announcements', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
         ['route' => 'dashboard#courses', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'teacher/assignment', 'icon' => 'bi-pencil-square', 'label' => 'Assignments'],
         ['route' => 'teacher/grades', 'icon' => 'bi-mortarboard', 'label' => 'Grades'],

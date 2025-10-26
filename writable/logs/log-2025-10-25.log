@@ -2245,3 +2245,101 @@ in APPPATH\Controllers\Announcement.php on line 22.
  5 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
  6 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
  7 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:36:56 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(105): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:37:54 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:38:08 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:43:33 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:44:00 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:44:09 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-10-25 22:44:29 --> ErrorException: Undefined variable $userRole
+[Method: GET, Route: announcements/create]
+in APPPATH\Views\announcements\create.php on line 92.
+ 1 APPPATH\Views\announcements\create.php(92): CodeIgniter\Debug\Exceptions->errorHandler(2, 'Undefined variable $userRole', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php', 92)
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\announcements\\create.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('announcements/create', [], true)
+ 5 APPPATH\Controllers\Announcement.php(111): view('announcements/create', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Announcement->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Announcement))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

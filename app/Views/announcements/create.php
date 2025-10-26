@@ -40,6 +40,24 @@
                     <form method="post" action="<?= base_url('announcements/create') ?>">
                         <?= csrf_field() ?>
 
+                        <?php if ($userRole === 'admin'): ?>
+                            <div class="mb-3">
+                                <label for="role" class="form-label d-flex align-items-center">
+                                    <i class="bi bi-people me-2"></i>Target Audience
+                                </label>
+                                <select class="form-select" id="role" name="role" required>
+                                    <option value="">Select Target Audience</option>
+                                    <option value="teacher" <?= old('role') == 'teacher' ? 'selected' : '' ?>>Teachers</option>
+                                    <option value="student" <?= old('role') == 'student' ? 'selected' : '' ?>>Students</option>
+                                </select>
+                                <?php if (isset($validation) && $validation->hasError('role')): ?>
+                                    <div class="text-danger">
+                                        <?= $validation->getError('role') ?>
+                                    </div>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+
                         <div class="mb-3">
                             <label for="title" class="form-label">Title</label>
                             <input type="text" class="form-control" id="title" name="title" value="<?= old('title') ?>" required>
@@ -50,31 +68,37 @@
                             <?php endif; ?>
                         </div>
 
-                        <div class="mb-3">
-                            <label for="course_id" class="form-label">Course</label>
-                            <?php if (empty($courses)): ?>
-                                <div class="alert alert-warning">
-                                    You don't have any courses assigned to you. Please contact an administrator to assign courses.
-                                </div>
-                            <?php else: ?>
-                                <select class="form-select" id="course_id" name="course_id" required>
-                                    <option value="">Select a course</option>
-                                    <?php foreach ($courses as $course): ?>
-                                        <option value="<?= $course['id'] ?>" <?= old('course_id') == $course['id'] ? 'selected' : '' ?>>
-                                            <?= esc($course['title']) ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                                <?php if (isset($validation) && $validation->hasError('course_id')): ?>
-                                    <div class="text-danger">
-                                        <?= $validation->getError('course_id') ?>
+                    <?php if (isset($isGeneral) && $isGeneral): ?>
+
+                        <?php else: ?>
+                            <div class="mb-3">
+                                <label for="course_id" class="form-label">Course</label>
+                                <?php if (empty($courses)): ?>
+                                    <div class="alert alert-warning">
+                                        You don't have any courses assigned to you. Please contact an administrator to assign courses.
                                     </div>
+                                <?php else: ?>
+                                    <select class="form-select" id="course_id" name="course_id" required>
+                                        <option value="">Select a course</option>
+                                        <?php foreach ($courses as $course): ?>
+                                            <option value="<?= $course['id'] ?>" <?= old('course_id') == $course['id'] ? 'selected' : '' ?>>
+                                                <?= esc($course['title']) ?>
+                                            </option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                    <?php if (isset($validation) && $validation->hasError('course_id')): ?>
+                                        <div class="text-danger">
+                                            <?= $validation->getError('course_id') ?>
+                                        </div>
+                                    <?php endif; ?>
                                 <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
+                            </div>
+                        <?php endif; ?>
 
                         <div class="mb-3">
-                            <label for="content" class="form-label">Content</label>
+                            <label for="content" class="form-label d-flex align-items-center">
+                                <i class="bi bi-file-text me-2"></i>Content
+                            </label>
                             <textarea class="form-control" id="content" name="content" rows="5" required><?= old('content') ?></textarea>
                             <?php if (isset($validation) && $validation->hasError('content')): ?>
                                 <div class="text-danger">
@@ -82,7 +106,6 @@
                                 </div>
                             <?php endif; ?>
                         </div>
-
                         <button type="submit" class="btn btn-primary">Create Announcement</button>
                         <a href="<?= base_url('dashboard') ?>" class="btn btn-secondary">Cancel</a>
                     </form>
