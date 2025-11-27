@@ -23,6 +23,8 @@ $routes->post('/announcements/create', 'Announcement::create');
 
 $routes->get('/course', 'Course::index');
 $routes->post('/course/enroll', 'Course::enroll');
+$routes->get('/course/search', 'Course::search');
+$routes->post('/course/search', 'Course::search');
 
 $routes->get('/admin/course/(:num)/upload', 'Materials::upload/$1');
 $routes->post('/admin/course/(:num)/upload', 'Materials::upload/$1');

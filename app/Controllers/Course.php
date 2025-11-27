@@ -77,7 +77,7 @@ class Course extends BaseController
         }
     }
 
-     public function index()
+    public function index()
     {
         $session = session();
         if (! $session->get('isLoggedIn')) {
@@ -156,5 +156,27 @@ class Course extends BaseController
         }
 
         return view('courses/index', $data);
+    }
+
+    public function search()
+    {
+        $courseModel = new CourseModel();
+        $searchTerm = $this->request->getVar('search_term');
+
+        if (!empty($searchTerm)) {
+            $courseModel->like('title', $searchTerm);
+            $courseModel->orLike('description', $searchTerm);
+        }
+
+        $courses = $courseModel->findAll();
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($courses);
+        }
+
+        return view('courses/search_results', [
+            'courses' => $courses,
+            'searchTerm' => $searchTerm
+        ]);
     }
 }

@@ -183,8 +183,8 @@ function renderSidebar($role, $menus, $currentRoute) {
         // Load notifications on page load
         loadNotifications();
 
-        // Refresh notifications every 5 seconds
-        setInterval(loadNotifications, 5000);
+        // Refresh notifications every 10 seconds
+        setInterval(loadNotifications, 10000);
 
         $('.nav-link:has(.bi-bell)').parent().on('shown.bs.dropdown', function() {
             loadNotifications();

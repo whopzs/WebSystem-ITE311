@@ -112,7 +112,22 @@
 
 <!-- Student Dashboard-->
 <?php elseif ($userRole === 'student'): ?>
-<?php $materialModel = new \App\Models\MaterialModel(); ?>
+
+    <?php $materialModel = new \App\Models\MaterialModel(); ?>
+    
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form id="searchform" class="d-flex">
+            <div class="input-group">
+                <input type="text" id="searchInput" class="form-control"
+                    placeholder="Search courses..." name="search_term">
+                <button class="btn btn-outline-maroon" type="submit">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <div class="row">
     
@@ -122,12 +137,12 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">Enrolled Courses</h6>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="coursesContainer">
                 <?php if (empty($enrolledCourses)): ?>
                     <p class="text-muted">You are not enrolled in any courses yet.</p>
                 <?php else: ?>
                     <?php foreach ($enrolledCourses as $course): ?>
-                        <div class="d-flex align-items-center mb-3 p-3 border rounded">
+                        <div class="d-flex align-items-center mb-3 p-3 border rounded course-card" data-course-id="<?= esc($course['course_id']) ?>">
                             <div class="flex-shrink-0">
                                 <i class="bi bi-book text-maroon fa-2x"></i>
                             </div>
@@ -186,7 +201,7 @@
             <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-white">Available Courses</h6>
             </div>
-            <div class="card-body">
+        <div class="card-body">
                 <?php if (empty($availableCourses)): ?>
                     <p class="text-muted">No courses available for enrollment.</p>
                 <?php else: ?>
@@ -306,6 +321,46 @@ $(document).ready(function() {
             $('.alert').alert('close');
         }, 5000);
     }
+
+    // Client-side filtering
+    $('#searchInput').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('.course-card').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // Server-side search with AJAX
+    $('#searchform').on('submit', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#searchInput').val();
+
+        $.get('<?= base_url('course/search') ?>', { search_term: searchTerm }, function(data) {
+            $('#coursesContainer').empty();
+
+            if (data.length > 0) {
+                $.each(data, function(index, course) {
+                    var courseHtml = `
+                        <div class="d-flex align-items-center mb-3 p-3 border rounded course-card" data-course-id="${course.id}">
+                            <div class="flex-shrink-0">
+                                <i class="bi bi-book text-maroon fa-2x"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-1">${course.title}</h6>
+                                <p class="mb-1 text-muted small">${course.description}</p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(${course.id}); return false;">View</a>
+                            </div>
+                        </div>
+                    `;
+                    $('#coursesContainer').append(courseHtml);
+                });
+            } else {
+                $('#coursesContainer').html('<div class="col-12"><div class="alert alert-info">No courses found matching your search.</div></div>');
+            }
+        });
+    });
 });
 </script>
 
