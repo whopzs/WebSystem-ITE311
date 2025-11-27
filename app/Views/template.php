@@ -1,5 +1,4 @@
 <?php
-    // Get current route (like 'login', 'register', 'dashboard', etc.)
     $currentRoute = service('router')->getMatchedRoute()[0] ?? '';
 ?>
 <!DOCTYPE html>
@@ -19,13 +18,13 @@
         }
 
         body {
-            background-color: #ffffff; /* White background */
+            background-color: #ffffff; 
             color: #333;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .navbar {
-            background-color: #800000 !important; /* Maroon */
+            background-color: #800000 !important; 
         }
 
         .navbar-brand, 
@@ -35,7 +34,7 @@
         }
 
         .nav-link:hover {
-            color: #ffcccc !important; /* Light maroon on hover */
+            color: #ffcccc !important; 
         }
 
         main {
@@ -44,7 +43,7 @@
         }
 
         footer {
-            background-color: #800000; /* Maroon */
+            background-color: #800000;
             color: white;
             text-align: center;
             padding: 10px 0;
@@ -62,8 +61,7 @@
     </style>
 </head>
 <body>
-    <!-- Navbar (hide on login, register, dashboard) -->
-    <?php if (!in_array($currentRoute, ['login', 'register', 'dashboard'])): ?>
+    <?php if (!in_array($currentRoute, ['dashboard'])): ?>
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="<?= base_url('/') ?>">ITE311</a>

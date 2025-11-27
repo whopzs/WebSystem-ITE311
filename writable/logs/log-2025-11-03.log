@@ -1,0 +1,36 @@
+CRITICAL - 2025-11-03 14:05:15 --> ErrorException: fopen(C:\xampp\htdocs\ITE311-LAGSIL\writable\session/ci_session921e3d90efb9dbed0fffa84613110052): Failed to open stream: Permission denied
+[Method: GET, Route: notifications]
+in SYSTEMPATH\Session\Handlers\FileHandler.php on line 130.
+ 1 [internal function]: CodeIgniter\Debug\Exceptions->errorHandler(2, 'fopen(C:\\xampp\\htdocs\\ITE311-LAGSIL\\writable\\session/ci_session921e3d90efb9dbed0fffa84613110052): Failed to open stream: Permission denied', 'C:\\xampp\\htdocs\\ITE311-LAGSIL\\system\\Session\\Handlers\\FileHandler.php', 130)
+ 2 SYSTEMPATH\Session\Handlers\FileHandler.php(130): fopen('C:\\xampp\\htdocs\\ITE311-LAGSIL\\writable\\session/ci_session921e3d90efb9dbed0fffa84613110052', 'c+b')
+ 3 [internal function]: CodeIgniter\Session\Handlers\FileHandler->read('921e3d90efb9dbed0fffa84613110052')
+ 4 SYSTEMPATH\Session\Session.php(912): session_start()
+ 5 SYSTEMPATH\Session\Session.php(243): CodeIgniter\Session\Session->startSession()
+ 6 SYSTEMPATH\Config\Services.php(715): CodeIgniter\Session\Session->start()
+ 7 SYSTEMPATH\Config\BaseService.php(312): CodeIgniter\Config\Services::session(Object(Config\Session), false)
+ 8 SYSTEMPATH\Config\BaseService.php(251): CodeIgniter\Config\BaseService::__callStatic('session', [...])
+ 9 SYSTEMPATH\Config\Services.php(668): CodeIgniter\Config\BaseService::getSharedInstance('session', null)
+10 SYSTEMPATH\Config\BaseService.php(321): CodeIgniter\Config\Services::session()
+11 SYSTEMPATH\Config\BaseService.php(202): CodeIgniter\Config\BaseService::__callStatic('session', [])
+12 SYSTEMPATH\Common.php(995): CodeIgniter\Config\BaseService::get('session')
+13 APPPATH\Controllers\BaseController.php(67): service('session')
+14 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+15 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+16 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+17 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+18 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+19 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+20 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-11-03 14:09:29 --> ParseError: syntax error, unexpected token "endif", expecting end of file
+[Method: GET, Route: login]
+in APPPATH\Views\template.php on line 83.
+ 1 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 2 SYSTEMPATH\View\View.php(242): CodeIgniter\View\View->render('template', [], true)
+ 3 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('auth/login', [], true)
+ 4 APPPATH\Controllers\Auth.php(118): view('auth/login')
+ 5 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Auth->login()
+ 6 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Auth))
+ 7 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 8 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 9 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+10 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))

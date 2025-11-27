@@ -40,5 +40,5 @@
 
          <p class="text-center mt-3 text-muted small">Don't have an account? <a href="<?= base_url('register') ?>" style="color: #800000; font-weight: 500;">Register</a></p>
     </div>
-<?php /* close container started in template via section */ ?>
+<?php ?>
 <?= $this->endSection() ?>
