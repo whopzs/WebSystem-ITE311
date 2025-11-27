@@ -21,6 +21,7 @@ $routes->get('/announcements', 'Announcement::index');
 $routes->get('/announcements/create', 'Announcement::create');
 $routes->post('/announcements/create', 'Announcement::create');
 
+$routes->get('/course', 'Course::index');
 $routes->post('/course/enroll', 'Course::enroll');
 
 $routes->get('/admin/course/(:num)/upload', 'Materials::upload/$1');
