@@ -71,7 +71,10 @@ class Course extends BaseController
             ];
             $notificationModel->insert($teacherNotification);
 
-            return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course', 'enrollment_date' => $enrollment_date]);
+            $materialModel = new \App\Models\MaterialModel();
+            $materials = $materialModel->getMaterialsByCourse($course_id);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course', 'enrollment_date' => $enrollment_date, 'materials' => $materials]);
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to enroll']);
         }
@@ -163,12 +166,40 @@ class Course extends BaseController
         $courseModel = new CourseModel();
         $searchTerm = $this->request->getVar('search_term');
 
-        if (!empty($searchTerm)) {
-            $courseModel->like('title', $searchTerm);
-            $courseModel->orLike('description', $searchTerm);
-        }
+        $user_id = session()->get('user_id');
+        $role = session()->get('userRole');
 
-        $courses = $courseModel->findAll();
+        if ($role === 'student') {
+            $enrollmentModel = new EnrollmentModel();
+            $enrollments = $enrollmentModel->where('user_id', $user_id)->findAll();
+            $enrolledIds = array_column($enrollments, 'course_id');
+
+            if (!empty($enrolledIds)) {
+                $courseModel->whereIn('id', $enrolledIds);
+                if (!empty($searchTerm)) {
+                    $courseModel->groupStart();
+                    $courseModel->like('title', $searchTerm);
+                    $courseModel->orLike('description', $searchTerm);
+                    $courseModel->groupEnd();
+                }
+                $courses = $courseModel->findAll();
+
+                // Add materials to each course
+                $materialModel = new \App\Models\MaterialModel();
+                foreach ($courses as &$course) {
+                    $course['materials'] = $materialModel->getMaterialsByCourse($course['id']);
+                }
+            } else {
+                $courses = [];
+            }
+        } else {
+            // For admin/teacher, search all courses
+            if (!empty($searchTerm)) {
+                $courseModel->like('title', $searchTerm);
+                $courseModel->orLike('description', $searchTerm);
+            }
+            $courses = $courseModel->findAll();
+        }
 
         if ($this->request->isAJAX()) {
             return $this->response->setJSON($courses);

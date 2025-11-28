@@ -248,6 +248,7 @@ function showMaterials(courseId) {
 }
 
 $(document).ready(function() {
+    var originalEnrolledHtml = $('#coursesContainer').html();
     $('.enroll-btn').on('click', function(e) {
         e.preventDefault();
 
@@ -293,6 +294,50 @@ $(document).ready(function() {
 
                     $('#enrolled-courses .card-body').append(enrolledHtml);
 
+                    // Add materials section
+                    if (response.materials && response.materials.length > 0) {
+                        var materialsHtml = `
+                            <div class="materials-section mb-4" id="materials-${courseId}" style="display: none;">
+                                <div class="mb-4">
+                                    <h6 class="text-maroon mb-3">${courseTitle} Materials</h6>
+                                    <div class="row">
+                        `;
+                        $.each(response.materials, function(index2, material) {
+                            materialsHtml += `
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="bi bi-file-earmark-text text-maroon me-2"></i>
+                                                        <h6 class="card-title mb-0 small">${material.file_name}</h6>
+                                                    </div>
+                                                    <small class="text-muted mb-3">Uploaded: ${new Date(material.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</small>
+                                                    <a href="<?= base_url('materials/download/') ?>${material.id}" class="btn btn-outline-maroon btn-sm mt-auto">
+                                                        <i class="bi bi-download me-1"></i>Download
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                            `;
+                        });
+                        materialsHtml += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#enrolled-courses .card-body').append(materialsHtml);
+                    } else {
+                        var noMaterialsHtml = `
+                            <div class="no-materials-message" id="no-materials-${courseId}" style="display: none;">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-file-earmark-x fa-2x mb-3 text-muted"></i>
+                                    <p>No materials available for this course yet.</p>
+                                </div>
+                            </div>
+                        `;
+                        $('#enrolled-courses .card-body').append(noMaterialsHtml);
+                    }
+
                     // Update counts
                     var enrolledCount = $('#enrolled-courses .card-body .d-flex').length;
                     var availableCount = $('#available-courses .card-body .d-flex').length;
@@ -333,7 +378,12 @@ $(document).ready(function() {
     // Server-side search with AJAX
     $('#searchform').on('submit', function(e) {
         e.preventDefault();
-        var searchTerm = $('#searchInput').val();
+        var searchTerm = $('#searchInput').val().trim();
+
+        if (searchTerm === '') {
+            $('#coursesContainer').html(originalEnrolledHtml);
+            return;
+        }
 
         $.get('<?= base_url('course/search') ?>', { search_term: searchTerm }, function(data) {
             $('#coursesContainer').empty();
@@ -348,6 +398,7 @@ $(document).ready(function() {
                             <div class="flex-grow-1 ms-3">
                                 <h6 class="mb-1">${course.title}</h6>
                                 <p class="mb-1 text-muted small">${course.description}</p>
+                                <small class="text-muted">Enrolled on: ${new Date(course.enrollment_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</small>
                             </div>
                             <div class="flex-shrink-0">
                                 <a href="#" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" onclick="showMaterials(${course.id}); return false;">View</a>
@@ -355,6 +406,50 @@ $(document).ready(function() {
                         </div>
                     `;
                     $('#coursesContainer').append(courseHtml);
+
+                    // Add materials section
+                    if (course.materials && course.materials.length > 0) {
+                        var materialsHtml = `
+                            <div class="materials-section mb-4" id="materials-${course.id}" style="display: none;">
+                                <div class="mb-4">
+                                    <h6 class="text-maroon mb-3">${course.title} Materials</h6>
+                                    <div class="row">
+                        `;
+                        $.each(course.materials, function(index2, material) {
+                            materialsHtml += `
+                                        <div class="col-md-6 col-lg-4 mb-3">
+                                            <div class="card h-100">
+                                                <div class="card-body d-flex flex-column">
+                                                    <div class="d-flex align-items-center mb-2">
+                                                        <i class="bi bi-file-earmark-text text-maroon me-2"></i>
+                                                        <h6 class="card-title mb-0 small">${material.file_name}</h6>
+                                                    </div>
+                                                    <small class="text-muted mb-3">Uploaded: ${new Date(material.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</small>
+                                                    <a href="<?= base_url('materials/download/') ?>${material.id}" class="btn btn-outline-maroon btn-sm mt-auto">
+                                                        <i class="bi bi-download me-1"></i>Download
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                            `;
+                        });
+                        materialsHtml += `
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                        $('#coursesContainer').append(materialsHtml);
+                    } else {
+                        var noMaterialsHtml = `
+                            <div class="no-materials-message" id="no-materials-${course.id}" style="display: none;">
+                                <div class="text-center text-muted">
+                                    <i class="bi bi-file-earmark-x fa-2x mb-3 text-muted"></i>
+                                    <p>No materials available for this course yet.</p>
+                                </div>
+                            </div>
+                        `;
+                        $('#coursesContainer').append(noMaterialsHtml);
+                    }
                 });
             } else {
                 $('#coursesContainer').html('<div class="col-12"><div class="alert alert-info">No courses found matching your search.</div></div>');
