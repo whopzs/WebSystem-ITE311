@@ -10,7 +10,6 @@ class Course extends BaseController
 {
     public function enroll()
     {
-        // Set JSON content type
         $this->response->setContentType('application/json');
 
         if (!session()->get('isLoggedIn')) {
@@ -27,18 +26,15 @@ class Course extends BaseController
         $enrollmentModel = new EnrollmentModel();
         $courseModel = new CourseModel();
 
-        // Check if course exists
         $course = $courseModel->find($course_id);
         if (!$course) {
             return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
         }
 
-        // Check if already enrolled
         if ($enrollmentModel->isAlreadyEnrolled($user_id, $course_id)) {
             return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Already enrolled in this course']);
         }
 
-        // Enroll user
         $data = [
             'user_id' => $user_id,
             'course_id' => $course_id,
@@ -78,6 +74,62 @@ class Course extends BaseController
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to enroll']);
         }
+    }
+
+    public function search()
+    {
+        $courseModel = new CourseModel();
+        $searchTerm = $this->request->getVar('search_term');
+
+        $user_id = session()->get('user_id');
+        $role = session()->get('userRole');
+
+        if ($role === 'student') {
+            $enrollmentModel = new EnrollmentModel();
+            $enrollments = $enrollmentModel->where('user_id', $user_id)->findAll();
+            $enrolledIds = array_column($enrollments, 'course_id');
+
+            if (!empty($enrolledIds)) {
+                $courseModel->whereIn('id', $enrolledIds);
+                if (!empty($searchTerm)) {
+                    $courseModel->groupStart();
+                    $courseModel->like('title', $searchTerm);
+                    $courseModel->orLike('description', $searchTerm);
+                    $courseModel->groupEnd();
+                }
+                $courses = $courseModel->findAll();
+
+                // Add materials to each course
+                $materialModel = new \App\Models\MaterialModel();
+                foreach ($courses as &$course) {
+                    $course['materials'] = $materialModel->getMaterialsByCourse($course['id']);
+
+                    foreach ($enrollments as $enrollment) {
+                        if ($enrollment['course_id'] == $course['id']) {
+                            $course['enrollment_date'] = $enrollment['enrollment_date'];
+                            break;
+                        }
+                    }
+                }
+            } else {
+                $courses = [];
+            }
+        } else {
+            if (!empty($searchTerm)) {
+                $courseModel->like('title', $searchTerm);
+                $courseModel->orLike('description', $searchTerm);
+            }
+            $courses = $courseModel->findAll();
+        }
+
+        if ($this->request->isAJAX()) {
+            return $this->response->setJSON($courses);
+        }
+
+        return view('courses/search_results', [
+            'courses' => $courses,
+            'searchTerm' => $searchTerm
+        ]);
     }
 
     public function index()
@@ -159,55 +211,5 @@ class Course extends BaseController
         }
 
         return view('courses/index', $data);
-    }
-
-    public function search()
-    {
-        $courseModel = new CourseModel();
-        $searchTerm = $this->request->getVar('search_term');
-
-        $user_id = session()->get('user_id');
-        $role = session()->get('userRole');
-
-        if ($role === 'student') {
-            $enrollmentModel = new EnrollmentModel();
-            $enrollments = $enrollmentModel->where('user_id', $user_id)->findAll();
-            $enrolledIds = array_column($enrollments, 'course_id');
-
-            if (!empty($enrolledIds)) {
-                $courseModel->whereIn('id', $enrolledIds);
-                if (!empty($searchTerm)) {
-                    $courseModel->groupStart();
-                    $courseModel->like('title', $searchTerm);
-                    $courseModel->orLike('description', $searchTerm);
-                    $courseModel->groupEnd();
-                }
-                $courses = $courseModel->findAll();
-
-                // Add materials to each course
-                $materialModel = new \App\Models\MaterialModel();
-                foreach ($courses as &$course) {
-                    $course['materials'] = $materialModel->getMaterialsByCourse($course['id']);
-                }
-            } else {
-                $courses = [];
-            }
-        } else {
-            // For admin/teacher, search all courses
-            if (!empty($searchTerm)) {
-                $courseModel->like('title', $searchTerm);
-                $courseModel->orLike('description', $searchTerm);
-            }
-            $courses = $courseModel->findAll();
-        }
-
-        if ($this->request->isAJAX()) {
-            return $this->response->setJSON($courses);
-        }
-
-        return view('courses/search_results', [
-            'courses' => $courses,
-            'searchTerm' => $searchTerm
-        ]);
     }
 }
