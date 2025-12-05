@@ -33,3 +33,8 @@ $routes->get('/materials/download/(:num)', 'Materials::download/$1');
 
 $routes->get('/notifications', 'Notifications::get');
 $routes->post('/notifications/mark_read/(:num)', 'Notifications::mark_as_read/$1');
+
+$routes->get('/users', 'Users::index');
+$routes->post('/users/update/(:num)', 'Users::update/$1');
+$routes->post('/users/create', 'Users::create');
+$routes->post('/users/delete/(:num)', 'Users::delete/$1');

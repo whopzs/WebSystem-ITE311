@@ -14,6 +14,8 @@ class CreateUsersTable extends Migration
             'email'       => ['type'=>'VARCHAR','constraint'=>'100','unique'=>true],
             'role'        => ['type'=>'ENUM','constraint'=>['admin','teacher','student'],'default'=>'admin'],
             'password'    => ['type'=>'VARCHAR','constraint'=>'255'],
+            'status'      => ['type'=>'VARCHAR','constraint'=>'20','null'=>true,'default'=>'active'],
+            'deleted_at'  => ['type'=>'DATETIME','null'=>true],
             'created_at'  => ['type'=>'DATETIME','null'=>true],
             'updated_at'  => ['type'=>'DATETIME','null'=>true],
         ]);

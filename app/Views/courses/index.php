@@ -29,8 +29,8 @@
 <div class="row">
     <div class="col-12">
         <div class="card shadow">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-maroon">All Courses</h6>
+            <div class="card-header py-3" style="background-color: maroon; color: white;">
+                <h6 class="m-0 font-weight-bold text-white">All Courses</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

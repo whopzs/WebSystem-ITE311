@@ -9,7 +9,7 @@ $menus = [
     'admin' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],
         ['route' => 'announcements/create', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
-        ['route' => 'admin/users', 'icon' => 'bi-people', 'label' => 'Users'],
+        ['route' => 'users', 'icon' => 'bi-people', 'label' => 'Users'],
         ['route' => 'course', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
         ['route' => 'admin/settings', 'icon' => 'bi-gear', 'label' => 'Settings'],
     ],
