@@ -151,10 +151,12 @@
                     <div class="mb-3">
                         <label for="userName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="userName" name="name" required>
+                        <div class="text-danger" id="editNameError"></div>
                     </div>
                     <div class="mb-3">
                         <label for="userEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="userEmail" name="email" required>
+                        <div class="text-danger" id="editEmailError"></div>
                     </div>
                 </form>
             </div>
@@ -184,14 +186,17 @@
                             <option value="teacher">Teacher</option>
                             <option value="admin">Admin</option>
                         </select>
+                        <div class="text-danger" id="roleError"></div>
                     </div>
                     <div class="mb-3">
                         <label for="addUserName" class="form-label">Name</label>
                         <input type="text" class="form-control" id="addUserName" name="name" required>
+                        <div class="text-danger" id="nameError"></div>
                     </div>
                     <div class="mb-3">
                         <label for="addUserEmail" class="form-label">Email</label>
                         <input type="email" class="form-control" id="addUserEmail" name="email" required>
+                        <div class="text-danger" id="emailError"></div>
                     </div>
                     <div class="alert mt-3" style="background-color: #f8f0f0; border-color: maroon; color: maroon;">
                         <i class="bi bi-info-circle me-2"></i><strong>Note:</strong> Default password is LMS2025
@@ -212,6 +217,8 @@ function editUser(id, name, email, role) {
     $('#userId').val(id);
     $('#userName').val(name);
     $('#userEmail').val(email);
+    $('#editNameError').text('');
+    $('#editEmailError').text('');
     $('#editUserModal').modal('show');
 }
 
@@ -219,6 +226,9 @@ function addUser() {
     $('#addUserName').val('');
     $('#addUserEmail').val('');
     $('#addUserRole').val('student');
+    $('#nameError').text('');
+    $('#emailError').text('');
+    $('#roleError').text('');
     $('#successMsg').hide();
     $('#addUserModal').modal('show');
 }
@@ -242,15 +252,11 @@ $(document).ready(function() {
                 if (response.success) {
                     $('#editUserModal').modal('hide');
                     location.reload(); // Reload to show updated data
+                } else if (response.message === 'Validation errors.') {
+                    $('#editNameError').text(response.errors.name || '');
+                    $('#editEmailError').text(response.errors.email || '');
                 } else {
-                    var errorMsg = 'Failed to update user: ' + response.message;
-                    if (response.errors) {
-                        errorMsg += '\n\nValidation errors:';
-                        for (var field in response.errors) {
-                            errorMsg += '\n' + field + ': ' + response.errors[field];
-                        }
-                    }
-                    alert(errorMsg);
+                    alert('Failed to update user: ' + response.message);
                 }
             },
             error: function(xhr, status, error) {
@@ -280,15 +286,12 @@ $(document).ready(function() {
                         $('#addUserModal').modal('hide');
                         location.reload();
                     }, 2000);
+                } else if (response.message === 'Validation errors.') {
+                    $('#nameError').text(response.errors.name || '');
+                    $('#emailError').text(response.errors.email || '');
+                    $('#roleError').text(response.errors.role || '');
                 } else {
-                    var errorMsg = 'Failed to create user: ' + response.message;
-                    if (response.errors) {
-                        errorMsg += '\n\nValidation errors:';
-                        for (var field in response.errors) {
-                            errorMsg += '\n' + field + ': ' + response.errors[field];
-                        }
-                    }
-                    alert(errorMsg);
+                    alert('Failed to create user: ' + response.message);
                 }
             },
             error: function(xhr, status, error) {
