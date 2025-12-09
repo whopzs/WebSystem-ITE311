@@ -233,12 +233,25 @@ function addUser() {
     $('#addUserModal').modal('show');
 }
 
+function isValidName(name) {
+    return /^[a-zA-Z\s]+$/.test(name);
+}
+
 $(document).ready(function() {
     $('#saveUserBtn').click(function() {
+        $('#editNameError').text('');
+        $('#editEmailError').text('');
+        
+        var name = $('#userName').val().trim();
+        if (!isValidName(name)) {
+            $('#editNameError').text('Name can only contain letters and spaces.');
+            return;
+        }
+        
         var csrfToken = '<?= csrf_hash() ?>';
         var formData = {
             csrf_token_name: csrfToken,
-            name: $('#userName').val(),
+            name: name,
             email: $('#userEmail').val()
         };
 
@@ -266,10 +279,20 @@ $(document).ready(function() {
     });
 
     $('#createUserBtn').click(function() {
+        $('#nameError').text('');
+        $('#emailError').text('');
+        $('#roleError').text('');
+        
+        var name = $('#addUserName').val().trim();
+        if (!isValidName(name)) {
+            $('#nameError').text('Name can only contain letters and spaces.');
+            return;
+        }
+        
         var csrfToken = '<?= csrf_hash() ?>';
         var formData = {
             csrf_token_name: csrfToken,
-            name: $('#addUserName').val(),
+            name: name,
             email: $('#addUserEmail').val(),
             password: 'LMS2025',
             role: $('#addUserRole').val()
