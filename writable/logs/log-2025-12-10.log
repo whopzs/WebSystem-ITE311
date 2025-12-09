@@ -1,0 +1,381 @@
+ERROR - 2025-12-10 01:08:31 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('DROP TABLE `ann...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('DROP TABLE `ann...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('DROP TABLE `ann...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\Forge.php(663): CodeIgniter\Database\BaseConnection->query('DROP TABLE `ann...')
+#4 C:\xampp\htdocs\ITE311-LAGSIL\app\Database\Migrations\2025-10-17-103543_CreateAnnouncementsTable.php(56): CodeIgniter\Database\Forge->dropTable('announcements')
+#5 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MigrationRunner.php(876): App\Database\Migrations\CreateAnnouncementsTable->down()
+#6 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MigrationRunner.php(289): CodeIgniter\Database\MigrationRunner->migrate('down', Object(stdClass))
+#7 C:\xampp\htdocs\ITE311-LAGSIL\system\Commands\Database\MigrateRollback.php(101): CodeIgniter\Database\MigrationRunner->regress(0)
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRollback->run(Array)
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate:rollbac...', Array)
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\Commands\Database\MigrateRefresh.php(86): CodeIgniter\CLI\BaseCommand->call('migrate:rollbac...', Array)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#13 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#14 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#15 C:\xampp\htdocs\ITE311-LAGSIL\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#16 {main}
+ERROR - 2025-12-10 01:08:31 --> mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\ITE311-LAGSIL\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\ITE311-LAGSIL\app\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+#7 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-10 01:08:31 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+[Method: GET, Route: notifications]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 5 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 6 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 7 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:31 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 7 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 8 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:31 --> [Caused by] mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 8 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 9 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-10 01:08:31 --> mysqli_sql_exception: MySQL server has gone away in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT *\nFROM `...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MigrationRunner.php(660): CodeIgniter\Database\BaseBuilder->get()
+#5 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MigrationRunner.php(175): CodeIgniter\Database\MigrationRunner->getHistory('')
+#6 C:\xampp\htdocs\ITE311-LAGSIL\system\Commands\Database\Migrate.php(85): CodeIgniter\Database\MigrationRunner->latest(NULL)
+#7 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\Migrate->run(Array)
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\BaseCommand.php(119): CodeIgniter\CLI\Commands->run('migrate', Array)
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\Commands\Database\MigrateRefresh.php(87): CodeIgniter\CLI\BaseCommand->call('migrate', Array)
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Commands.php(74): CodeIgniter\Commands\Database\MigrateRefresh->run(Array)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\CLI\Console.php(47): CodeIgniter\CLI\Commands->run('migrate:refresh', Array)
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(388): CodeIgniter\CLI\Console->run()
+#13 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
+#14 C:\xampp\htdocs\ITE311-LAGSIL\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
+#15 {main}
+ERROR - 2025-12-10 01:08:41 --> mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\ITE311-LAGSIL\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\ITE311-LAGSIL\app\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+#7 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-10 01:08:41 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+[Method: GET, Route: notifications]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 5 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 6 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 7 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:41 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 7 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 8 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:41 --> [Caused by] mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 8 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 9 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-10 01:08:50 --> mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\ITE311-LAGSIL\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\ITE311-LAGSIL\app\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+#7 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-10 01:08:50 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+[Method: GET, Route: notifications]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 5 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 6 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 7 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:50 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 7 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 8 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:08:50 --> [Caused by] mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 8 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 9 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-10 01:09:00 --> mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist in C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*)...', 0)
+#1 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*)...')
+#2 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*)...')
+#3 C:\xampp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*)...', Array, false)
+#4 C:\xampp\htdocs\ITE311-LAGSIL\system\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+#5 C:\xampp\htdocs\ITE311-LAGSIL\app\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+#6 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+#7 C:\xampp\htdocs\ITE311-LAGSIL\app\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+#8 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+#9 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+#10 C:\xampp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 C:\xampp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-10 01:09:00 --> CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+[Method: GET, Route: notifications]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 2 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 3 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 4 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 5 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 6 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 7 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:09:00 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 4 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 5 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 6 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 7 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 8 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+ 9 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-10 01:09:00 --> [Caused by] mysqli_sql_exception: Table 'lms_lagsil.notifications' doesn't exist
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = \'1\'
+AND `is_read` = 0')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1733): CodeIgniter\Database\BaseConnection->query('SELECT COUNT(*) AS `numrows`
+FROM `notifications`
+WHERE `user_id` = :user_id:
+AND `is_read` = :is_read:', [...], false)
+ 5 SYSTEMPATH\Model.php(675): CodeIgniter\Database\BaseBuilder->countAllResults(true)
+ 6 APPPATH\Models\NotificationModel.php(21): CodeIgniter\Model->countAllResults()
+ 7 APPPATH\Controllers\BaseController.php(72): App\Models\NotificationModel->getUnreadCount('1')
+ 8 APPPATH\Controllers\BaseController.php(59): App\Controllers\BaseController->loadNotificationData()
+ 9 SYSTEMPATH\CodeIgniter.php(904): App\Controllers\BaseController->initController(Object(CodeIgniter\HTTP\IncomingRequest), Object(CodeIgniter\HTTP\Response), Object(CodeIgniter\Log\Logger))
+10 SYSTEMPATH\CodeIgniter.php(498): CodeIgniter\CodeIgniter->createController()
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
