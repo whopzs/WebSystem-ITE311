@@ -16,7 +16,12 @@ class Users extends BaseController
 
         $userModel = new UserModel();
 
-        $data['users'] = $userModel->findAll();
+        $currentUserId = session()->get('user_id');
+
+        $nonAdminUsers = $userModel->where('role !=', 'admin')->findAll();
+        $otherAdminUsers = $userModel->where('role', 'admin')->where('id !=', $currentUserId)->findAll();
+
+        $data['users'] = array_merge($nonAdminUsers, $otherAdminUsers);
 
         return view('users/index', $data);
     }
@@ -27,6 +32,12 @@ class Users extends BaseController
 
         if ($userRole !== 'admin') {
             return $this->response->setJSON(['success' => false, 'message' => 'Access denied.']);
+        }
+
+        $userModel = new UserModel();
+        $user = $userModel->find($id);
+        if (!$user || $user['role'] === 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Cannot modify admin users.']);
         }
 
         if ($this->request->getMethod() === 'POST') {
@@ -104,6 +115,10 @@ class Users extends BaseController
         }
 
         $userModel = new UserModel();
+        $user = $userModel->find($id);
+        if (!$user || $user['role'] === 'admin') {
+            return $this->response->setJSON(['success' => false, 'message' => 'Cannot delete admin users.']);
+        }
 
         if ($userModel->delete($id)) {
             return $this->response->setJSON(['success' => true, 'message' => 'User deleted successfully.']);
