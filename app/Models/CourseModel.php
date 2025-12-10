@@ -12,7 +12,14 @@ class CourseModel extends Model
     protected $allowedFields = [
         'title',
         'description',
+        'course_number',
+        'semester',
+        'term',
+        'academic_year',
         'instructor_id',
+        'day',
+        'time',
+        'room',
         'created_at',
         'updated_at'
     ];

@@ -30,7 +30,17 @@
     <div class="col-12">
         <div class="card shadow">
             <div class="card-header py-3" style="background-color: maroon; color: white;">
-                <h6 class="m-0 font-weight-bold text-white">All Courses</h6>
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="m-0 font-weight-bold text-white">All Courses</h6>
+                    <div>
+                        <button type="button" class="btn btn-sm me-2" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#scheduleModal">
+                            + Create Schedule
+                        </button>
+                        <button type="button" class="btn btn-sm" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#createCourseModal">
+                            + Create Course
+                        </button>
+                    </div>
+                </div>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -61,6 +71,143 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Course Schedule Modal -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" aria-labelledby="scheduleModalLabel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: maroon; color: white;">
+                <h5 class="modal-title" id="scheduleModalLabel">Manage Course Schedule</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="scheduleForm">
+                    <div class="mb-3">
+                        <label for="scheduleCourse" class="form-label">Select Teacher</label>
+                        <select class="form-control" id="scheduleCourse" name="teacher_id" required>
+                            <option value="">Select Teacher</option>
+                            <?php foreach ($teachers as $teacher): ?>
+                                <option value="<?= esc($teacher['id']) ?>"><?= esc($teacher['name']) ?> - (<?= esc($teacher['email']) ?>)</option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="scheduleDay" class="form-label">Day of Week</label>
+                            <select class="form-control" id="scheduleDay" name="day" required>
+                                <option value="">Select Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="scheduleTime" class="form-label">Time</label>
+                            <select class="form-control" id="scheduleTime" name="time" required>
+                                <option value="">Select Time</option>
+                                <optgroup label="2 Hour Slots">
+                                    <option value="7-9 AM">7-9 AM</option>
+                                    <option value="12-2 PM">12-2 PM</option>
+                                </optgroup>
+                                <optgroup label="3 Hour Slots">
+                                    <option value="7-10 AM">7-10 AM</option>
+                                    <option value="12-3 PM">12-3 PM</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="scheduleRoom" class="form-label">Room</label>
+                        <input type="text" class="form-control" id="scheduleRoom" name="room" placeholder="e.g., Room 101" required>
+                    </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn text-white" id="addScheduleBtn" style="background-color: maroon;">Add to Schedule</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create Course Modal -->
+<div class="modal fade" id="createCourseModal" tabindex="-1" aria-labelledby="createCourseModalLabel">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: maroon; color: white;">
+                <h5 class="modal-title" id="createCourseModalLabel">Create New Course</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createCourseForm">
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <label for="courseTitle" class="form-label">Course Title</label>
+                            <input type="text" class="form-control" id="courseTitle" name="title" required>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <label for="courseNumber" class="form-label">Course Number</label>
+                            <input type="text" class="form-control" id="courseNumber" name="course_number" readonly>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="courseDescription" class="form-label">Description</label>
+                        <textarea class="form-control" id="courseDescription" name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="semester" class="form-label">Semester</label>
+                            <select class="form-control" id="semester" name="semester" required>
+                                <option value="">Select Semester</option>
+                                <option value="1st Semester">1st Semester</option>
+                                <option value="2nd Semester">2nd Semester</option>
+                                <option value="Summer">Summer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="term" class="form-label">Term</label>
+                            <select class="form-control" id="term" name="term" required>
+                                <option value="">Select Term</option>
+                                <option value="Prelim">Prelim</option>
+                                <option value="Midterm">Midterm</option>
+                                <option value="Final">Final</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="academicYear" class="form-label">Academic Year</label>
+                            <select class="form-control" id="academicYear" name="academic_year" required>
+                                <option value="">Select Academic Year</option>
+                                <option value="2025-2026">2025-2026</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="assignedTeacher" class="form-label">Assign Teacher</label>
+                            <select class="form-control" id="assignedTeacher" name="assigned_teacher" required>
+                                <option value="">Select Teacher</option>
+                                <?php foreach ($teachers as $teacher): ?>
+                                    <option value="<?= esc($teacher['id']) ?>"><?= esc($teacher['name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn text-white" id="createCourseBtn" style="background-color: maroon;">Create Course</button>
             </div>
         </div>
     </div>
@@ -453,6 +600,82 @@ $(document).ready(function() {
                 });
             } else {
                 $('#coursesContainer').html('<div class="col-12"><div class="alert alert-info">No courses found matching your search.</div></div>');
+            }
+        });
+    });
+
+    // Create Course Modal
+    $('#courseTitle').on('input', function() {
+        var title = $(this).val().toUpperCase().replace(/[^A-Z\s]/g, '').trim();
+        var words = title.split(' ').filter(word => word.length > 0);
+        var acronym = '';
+        if (words.length >= 3) {
+            acronym = words.slice(0, 3).map(word => word.charAt(0)).join('') + Math.floor(Math.random() * 10);
+        } else if (words.length === 2) {
+            acronym = words[0].charAt(0) + words[1].charAt(0) + Math.floor(Math.random() * 100);
+        } else if (words.length === 1 && words[0].length >= 2) {
+            acronym = words[0].substring(0, 3).toUpperCase();
+        } else {
+            acronym = 'CN' + Math.floor(Math.random() * 1000);
+        }
+        $('#courseNumber').val(acronym);
+    });
+
+    $('#createCourseBtn').on('click', function(e) {
+        e.preventDefault();
+        var formData = new FormData(document.getElementById('createCourseForm'));
+        $.ajax({
+            url: '<?= base_url('course/create') ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+            },
+            success: function(response) {
+                if (response.success) {
+                    showAlert('success', response.message || 'Course created successfully');
+                    $('#createCourseModal').modal('hide');
+                    $('#createCourseForm')[0].reset();
+                    location.reload();
+                } else {
+                    showAlert('danger', response.message || 'Error creating course');
+                }
+            },
+            error: function(xhr) {
+                showAlert('danger', 'Error creating course');
+                console.error(xhr.responseText);
+            }
+        });
+    });
+
+    // Add Schedule
+    $('#addScheduleBtn').on('click', function(e) {
+        e.preventDefault();
+        var formData = new FormData(document.getElementById('scheduleForm'));
+        $.ajax({
+            url: '<?= base_url('course/saveSchedule') ?>',
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': '<?= csrf_hash() ?>'
+            },
+            success: function(response) {
+                if (response.success) {
+                    showAlert('success', response.message || 'Schedule added successfully');
+                    $('#scheduleModal').modal('hide');
+                    $('#scheduleForm')[0].reset();
+                    // Optionally refresh the page or update the UI
+                } else {
+                    showAlert('danger', response.message || 'Error adding schedule');
+                }
+            },
+            error: function(xhr) {
+                showAlert('danger', 'Error adding schedule');
+                console.error(xhr.responseText);
             }
         });
     });

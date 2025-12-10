@@ -132,6 +132,70 @@ class Course extends BaseController
         ]);
     }
 
+    public function create()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn') || session()->get('userRole') !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $courseModel = new \App\Models\CourseModel();
+
+        $data = [
+            'title' => $this->request->getPost('title'),
+            'course_number' => $this->request->getPost('course_number'),
+            'description' => $this->request->getPost('description'),
+            'semester' => $this->request->getPost('semester'),
+            'term' => $this->request->getPost('term'),
+            'academic_year' => $this->request->getPost('academic_year'),
+            'instructor_id' => $this->request->getPost('assigned_teacher'),
+        ];
+
+        $courseId = $courseModel->insert($data);
+
+        if ($courseId) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Course created successfully']);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to create course']);
+        }
+    }
+
+    public function saveSchedule()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn') || session()->get('userRole') !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $courseModel = new \App\Models\CourseModel();
+
+        $teacherId = $this->request->getPost('teacher_id');
+        $day = $this->request->getPost('day');
+        $time = $this->request->getPost('time');
+        $room = $this->request->getPost('room');
+
+        if (!$teacherId) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Teacher ID is required']);
+        }
+
+        $data = [
+            'day' => $day,
+            'time' => $time,
+            'room' => $room,
+        ];
+
+        // Update all courses by the teacher with the schedule
+        $updated = $courseModel->where('instructor_id', $teacherId)->set($data)->update();
+
+        if ($updated) {
+            return $this->response->setJSON(['success' => true, 'message' => 'Schedule updated successfully for teacher\'s courses']);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to update schedule']);
+        }
+    }
+
     public function index()
     {
         $session = session();
@@ -142,7 +206,8 @@ class Course extends BaseController
         $role = $session->get('userRole');
         $data = [
             'userRole' => $role,
-            'userEmail' => $session->get('userEmail')
+            'userEmail' => $session->get('userEmail'),
+            'teachers' => []  // default empty
         ];
 
         if ($role === 'admin') {
@@ -154,6 +219,8 @@ class Course extends BaseController
 
             $courses = $courseModel->findAll();
             $data['courses'] = $courses;
+
+            $data['teachers'] = $userModel->where('role', 'teacher')->findAll();
 
             // Recent activity
             $data['recentActivities'] = [
