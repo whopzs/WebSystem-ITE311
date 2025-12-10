@@ -11,7 +11,7 @@ $menus = [
         ['route' => 'announcements/create', 'icon' => 'bi-megaphone', 'label' => 'Announcement'],
         ['route' => 'users', 'icon' => 'bi-people', 'label' => 'Users'],
         ['route' => 'course', 'icon' => 'bi-journal-bookmark', 'label' => 'Courses'],
-        ['route' => 'admin/settings', 'icon' => 'bi-gear', 'label' => 'Settings'],
+        ['route' => 'settings', 'icon' => 'bi-gear', 'label' => 'Settings'],
     ],
     'teacher' => [
         ['route' => 'dashboard', 'icon' => 'bi-speedometer2', 'label' => 'Dashboard'],

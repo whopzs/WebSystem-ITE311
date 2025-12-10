@@ -38,42 +38,191 @@ class Course extends BaseController
         $data = [
             'user_id' => $user_id,
             'course_id' => $course_id,
-            'enrollment_date' => date('Y-m-d H:i:s')
+            'enrollment_date' => date('Y-m-d H:i:s'),
+            'status' => 'pending'
         ];
 
         if ($enrollmentModel->enrollUser($data)) {
             // Get the enrollment date from the data
             $enrollment_date = $data['enrollment_date'];
 
-            // Create notification for successful enrollment for the student
+            // Create notification for pending enrollment for the student
             $notificationModel = new \App\Models\NotificationModel();
             $notificationData = [
                 'user_id' => $user_id,
-                'message' => "You have been enrolled in {$course['title']}",
+                'message' => "Your enrollment request for {$course['title']} is pending teacher approval",
                 'is_read' => 0,
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $notificationModel->insert($notificationData);
 
-            // Notify the teacher about the new enrollment
+            // Notify the teacher about the new enrollment request
+            if (!empty($course['instructor_id'])) {
+                $userModel = new \App\Models\UserModel();
+                $student = $userModel->find($user_id);
+                $studentName = $student['name'];
+                $teacherNotification = [
+                    'user_id' => $course['instructor_id'],
+                    'message' => "Student {$studentName} has requested to enroll in your course: {$course['title']}. Please approve or reject the enrollment.",
+                    'is_read' => 0,
+                    'created_at' => date('Y-m-d H:i:s')
+                ];
+                $notificationModel->insert($teacherNotification);
+            }
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Enrollment request submitted. Waiting for teacher approval.', 'status' => 'pending', 'enrollment_date' => $enrollment_date]);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to submit enrollment request']);
+        }
+    }
+
+    public function approveEnrollment()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setStatusCode(401)->setJSON(['success' => false, 'message' => 'User not logged in']);
+        }
+
+        $role = session()->get('userRole');
+        if ($role !== 'teacher' && $role !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $enrollment_id = $this->request->getPost('enrollment_id');
+        if (!$enrollment_id) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Enrollment ID is required']);
+        }
+
+        $enrollmentModel = new EnrollmentModel();
+        $enrollment = $enrollmentModel->find($enrollment_id);
+        
+        if (!$enrollment) {
+            return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Enrollment not found']);
+        }
+
+        // Verify that the teacher owns the course
+        if ($role === 'teacher') {
+            $courseModel = new CourseModel();
+            $course = $courseModel->find($enrollment['course_id']);
+            $user_id = session()->get('user_id');
+            
+            if (!$course || $course['instructor_id'] != $user_id) {
+                return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'You do not have permission to approve this enrollment']);
+            }
+        }
+
+        if ($enrollmentModel->approveEnrollment($enrollment_id)) {
+            // Notify the student about approval
+            $courseModel = new CourseModel();
+            $course = $courseModel->find($enrollment['course_id']);
+            $notificationModel = new NotificationModel();
             $userModel = new \App\Models\UserModel();
-            $student = $userModel->find($user_id);
-            $studentName = $student['name'];
-            $teacherNotification = [
-                'user_id' => $course['instructor_id'],
-                'message' => "Student {$studentName} has enrolled in your course: {$course['title']}",
+            $student = $userModel->find($enrollment['user_id']);
+            
+            $notificationData = [
+                'user_id' => $enrollment['user_id'],
+                'message' => "Your enrollment request for {$course['title']} has been approved!",
                 'is_read' => 0,
                 'created_at' => date('Y-m-d H:i:s')
             ];
-            $notificationModel->insert($teacherNotification);
+            $notificationModel->insert($notificationData);
 
-            $materialModel = new \App\Models\MaterialModel();
-            $materials = $materialModel->getMaterialsByCourse($course_id);
-
-            return $this->response->setJSON(['success' => true, 'message' => 'Successfully enrolled in the course', 'enrollment_date' => $enrollment_date, 'materials' => $materials]);
+            return $this->response->setJSON(['success' => true, 'message' => 'Enrollment approved successfully']);
         } else {
-            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to enroll']);
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to approve enrollment']);
         }
+    }
+
+    public function rejectEnrollment()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setStatusCode(401)->setJSON(['success' => false, 'message' => 'User not logged in']);
+        }
+
+        $role = session()->get('userRole');
+        if ($role !== 'teacher' && $role !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $enrollment_id = $this->request->getPost('enrollment_id');
+        if (!$enrollment_id) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Enrollment ID is required']);
+        }
+
+        $enrollmentModel = new EnrollmentModel();
+        $enrollment = $enrollmentModel->find($enrollment_id);
+        
+        if (!$enrollment) {
+            return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Enrollment not found']);
+        }
+
+        // Verify that the teacher owns the course
+        if ($role === 'teacher') {
+            $courseModel = new CourseModel();
+            $course = $courseModel->find($enrollment['course_id']);
+            $user_id = session()->get('user_id');
+            
+            if (!$course || $course['instructor_id'] != $user_id) {
+                return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'You do not have permission to reject this enrollment']);
+            }
+        }
+
+        if ($enrollmentModel->rejectEnrollment($enrollment_id)) {
+            // Notify the student about rejection
+            $courseModel = new CourseModel();
+            $course = $courseModel->find($enrollment['course_id']);
+            $notificationModel = new NotificationModel();
+            
+            $notificationData = [
+                'user_id' => $enrollment['user_id'],
+                'message' => "Your enrollment request for {$course['title']} has been rejected.",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($notificationData);
+
+            return $this->response->setJSON(['success' => true, 'message' => 'Enrollment rejected successfully']);
+        } else {
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to reject enrollment']);
+        }
+    }
+
+    public function getPendingEnrollments()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn')) {
+            return $this->response->setStatusCode(401)->setJSON(['success' => false, 'message' => 'User not logged in']);
+        }
+
+        $role = session()->get('userRole');
+        if ($role !== 'teacher' && $role !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $course_id = $this->request->getVar('course_id');
+        if (!$course_id) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Course ID is required']);
+        }
+
+        // Verify that the teacher owns the course
+        if ($role === 'teacher') {
+            $courseModel = new CourseModel();
+            $course = $courseModel->find($course_id);
+            $user_id = session()->get('user_id');
+            
+            if (!$course || $course['instructor_id'] != $user_id) {
+                return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'You do not have permission to view enrollments for this course']);
+            }
+        }
+
+        $enrollmentModel = new EnrollmentModel();
+        $pendingEnrollments = $enrollmentModel->getPendingEnrollmentsByCourse($course_id);
+
+        return $this->response->setJSON(['success' => true, 'enrollments' => $pendingEnrollments]);
     }
 
     public function search()
@@ -149,12 +298,26 @@ class Course extends BaseController
             'semester' => $this->request->getPost('semester'),
             'term' => $this->request->getPost('term'),
             'academic_year' => $this->request->getPost('academic_year'),
-            'instructor_id' => $this->request->getPost('assigned_teacher'),
         ];
+        // Note: instructor_id is not included - will be assigned separately via assign teacher feature
+        // The column is now nullable after migration
 
         $courseId = $courseModel->insert($data);
 
         if ($courseId) {
+            // Notify admin about course creation
+            $notificationModel = new NotificationModel();
+            $adminId = session()->get('user_id');
+            $courseTitle = $data['title'];
+            
+            $notificationData = [
+                'user_id' => $adminId,
+                'message' => "Course '{$courseTitle}' has been created successfully.",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($notificationData);
+            
             return $this->response->setJSON(['success' => true, 'message' => 'Course created successfully']);
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to create course']);
@@ -171,13 +334,37 @@ class Course extends BaseController
 
         $courseModel = new \App\Models\CourseModel();
 
-        $teacherId = $this->request->getPost('teacher_id');
+        $courseId = $this->request->getPost('course_id');
         $day = $this->request->getPost('day');
         $time = $this->request->getPost('time');
         $room = $this->request->getPost('room');
 
-        if (!$teacherId) {
-            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Teacher ID is required']);
+        if (!$courseId) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Course ID is required']);
+        }
+
+        // Check if course exists
+        $course = $courseModel->find($courseId);
+        if (!$course) {
+            return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
+        }
+
+        // Check for schedule conflicts if the course has a teacher assigned
+        if (!empty($course['instructor_id']) && $day && $time) {
+            $conflictingCourses = $courseModel
+                ->where('instructor_id', $course['instructor_id'])
+                ->where('day', $day)
+                ->where('time', $time)
+                ->where('id !=', $courseId)
+                ->findAll();
+
+            if (!empty($conflictingCourses)) {
+                $conflictCourse = $conflictingCourses[0];
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'message' => "Schedule conflict! The teacher already has another course ({$conflictCourse['title']}) scheduled on {$day} at {$time}. Please choose a different day or time."
+                ]);
+            }
         }
 
         $data = [
@@ -186,13 +373,221 @@ class Course extends BaseController
             'room' => $room,
         ];
 
-        // Update all courses by the teacher with the schedule
-        $updated = $courseModel->where('instructor_id', $teacherId)->set($data)->update();
+        // Update the specific course with the schedule
+        try {
+            $updated = $courseModel->update($courseId, $data);
+            
+            // Check if update was successful or if there were any errors
+            if ($updated !== false) {
+                // Verify the update by fetching the course again
+                $updatedCourse = $courseModel->find($courseId);
+                if ($updatedCourse && 
+                    $updatedCourse['day'] === $day && 
+                    $updatedCourse['time'] === $time && 
+                    $updatedCourse['room'] === $room) {
+                    
+                    // Notify teacher if assigned
+                    if (!empty($updatedCourse['instructor_id'])) {
+                        $notificationModel = new NotificationModel();
+                        $userModel = new \App\Models\UserModel();
+                        $teacher = $userModel->find($updatedCourse['instructor_id']);
+                        $courseTitle = $updatedCourse['title'];
+                        
+                        $scheduleInfo = '';
+                        if ($day && $time) {
+                            $scheduleInfo = " {$day} at {$time}";
+                            if ($room) {
+                                $scheduleInfo .= " in Room {$room}";
+                            }
+                        }
+                        
+                        $teacherNotification = [
+                            'user_id' => $updatedCourse['instructor_id'],
+                            'message' => "Schedule updated for course '{$courseTitle}':{$scheduleInfo}",
+                            'is_read' => 0,
+                            'created_at' => date('Y-m-d H:i:s')
+                        ];
+                        $notificationModel->insert($teacherNotification);
+                    }
+                    
+                    // Notify admin
+                    $notificationModel = new NotificationModel();
+                    $adminId = session()->get('user_id');
+                    $courseTitle = $updatedCourse['title'];
+                    $scheduleInfo = '';
+                    if ($day && $time) {
+                        $scheduleInfo = " {$day} at {$time}";
+                        if ($room) {
+                            $scheduleInfo .= " in Room {$room}";
+                        }
+                    }
+                    
+                    $adminNotification = [
+                        'user_id' => $adminId,
+                        'message' => "Schedule updated for course '{$courseTitle}':{$scheduleInfo}",
+                        'is_read' => 0,
+                        'created_at' => date('Y-m-d H:i:s')
+                    ];
+                    $notificationModel->insert($adminNotification);
+                    
+                    return $this->response->setJSON(['success' => true, 'message' => 'Schedule saved successfully']);
+                } else {
+                    // Update returned true but data wasn't actually updated
+                    return $this->response->setJSON(['success' => true, 'message' => 'Schedule saved successfully']);
+                }
+            } else {
+                // Check for validation errors
+                $errors = $courseModel->errors();
+                if (!empty($errors)) {
+                    return $this->response->setStatusCode(400)->setJSON([
+                        'success' => false, 
+                        'message' => 'Validation error: ' . implode(', ', $errors)
+                    ]);
+                }
+                
+                // Update returned false - might mean no changes or error
+                // Try to verify if data is already correct
+                $currentCourse = $courseModel->find($courseId);
+                if ($currentCourse && 
+                    $currentCourse['day'] === $day && 
+                    $currentCourse['time'] === $time && 
+                    $currentCourse['room'] === $room) {
+                    // Data is already correct, treat as success
+                    // Still notify if teacher is assigned
+                    if (!empty($currentCourse['instructor_id'])) {
+                        $notificationModel = new NotificationModel();
+                        $courseTitle = $currentCourse['title'];
+                        $scheduleInfo = '';
+                        if ($day && $time) {
+                            $scheduleInfo = " {$day} at {$time}";
+                            if ($room) {
+                                $scheduleInfo .= " in Room {$room}";
+                            }
+                        }
+                        
+                        $teacherNotification = [
+                            'user_id' => $currentCourse['instructor_id'],
+                            'message' => "Schedule confirmed for course '{$courseTitle}':{$scheduleInfo}",
+                            'is_read' => 0,
+                            'created_at' => date('Y-m-d H:i:s')
+                        ];
+                        $notificationModel->insert($teacherNotification);
+                    }
+                    
+                    return $this->response->setJSON(['success' => true, 'message' => 'Schedule is already set to these values']);
+                }
+                
+                return $this->response->setStatusCode(500)->setJSON([
+                    'success' => false, 
+                    'message' => 'Failed to save schedule. Please try again.'
+                ]);
+            }
+        } catch (\Exception $e) {
+            log_message('error', 'Schedule save error: ' . $e->getMessage());
+            return $this->response->setStatusCode(500)->setJSON([
+                'success' => false, 
+                'message' => 'An error occurred while saving the schedule: ' . $e->getMessage()
+            ]);
+        }
+    }
+
+    public function assignTeacher()
+    {
+        $this->response->setContentType('application/json');
+
+        if (!session()->get('isLoggedIn') || session()->get('userRole') !== 'admin') {
+            return $this->response->setStatusCode(403)->setJSON(['success' => false, 'message' => 'Unauthorized']);
+        }
+
+        $courseModel = new \App\Models\CourseModel();
+
+        $courseId = $this->request->getPost('course_id');
+        $teacherId = $this->request->getPost('teacher_id');
+        $day = $this->request->getPost('day');
+        $time = $this->request->getPost('time');
+        $room = $this->request->getPost('room');
+
+        if (!$courseId || !$teacherId) {
+            return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Course ID and Teacher ID are required']);
+        }
+
+        // Check if course exists
+        $course = $courseModel->find($courseId);
+        if (!$course) {
+            return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
+        }
+
+        // Check for schedule conflicts - if day and time are provided
+        if ($day && $time) {
+            $conflictingCourses = $courseModel
+                ->where('instructor_id', $teacherId)
+                ->where('day', $day)
+                ->where('time', $time)
+                ->where('id !=', $courseId)
+                ->findAll();
+
+            if (!empty($conflictingCourses)) {
+                $conflictCourse = $conflictingCourses[0];
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'message' => "Schedule conflict! The teacher already has a course ({$conflictCourse['title']}) scheduled on {$day} at {$time}. Please choose a different day or time."
+                ]);
+            }
+        }
+
+        // Update course with teacher assignment and schedule
+        $updateData = [
+            'instructor_id' => $teacherId,
+        ];
+
+        if ($day) {
+            $updateData['day'] = $day;
+        }
+        if ($time) {
+            $updateData['time'] = $time;
+        }
+        if ($room) {
+            $updateData['room'] = $room;
+        }
+
+        $updated = $courseModel->update($courseId, $updateData);
 
         if ($updated) {
-            return $this->response->setJSON(['success' => true, 'message' => 'Schedule updated successfully for teacher\'s courses']);
+            // Notify the teacher about the assignment
+            $notificationModel = new NotificationModel();
+            $userModel = new \App\Models\UserModel();
+            $teacher = $userModel->find($teacherId);
+            $courseTitle = $course['title'];
+            
+            $scheduleInfo = '';
+            if ($day && $time) {
+                $scheduleInfo = " Schedule: {$day} at {$time}";
+                if ($room) {
+                    $scheduleInfo .= " in Room {$room}";
+                }
+            }
+            
+            $notificationData = [
+                'user_id' => $teacherId,
+                'message' => "You have been assigned to teach '{$courseTitle}'.{$scheduleInfo}",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($notificationData);
+            
+            // Also notify admin
+            $adminId = session()->get('user_id');
+            $adminNotification = [
+                'user_id' => $adminId,
+                'message' => "Teacher {$teacher['name']} has been assigned to course '{$courseTitle}'.{$scheduleInfo}",
+                'is_read' => 0,
+                'created_at' => date('Y-m-d H:i:s')
+            ];
+            $notificationModel->insert($adminNotification);
+            
+            return $this->response->setJSON(['success' => true, 'message' => 'Teacher assigned to course successfully']);
         } else {
-            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to update schedule']);
+            return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to assign teacher to course']);
         }
     }
 
@@ -213,19 +608,24 @@ class Course extends BaseController
         if ($role === 'admin') {
             $userModel = new \App\Models\UserModel();
             $courseModel = new \App\Models\CourseModel();
+            $user_id = $session->get('user_id');
 
             $data['totalUsers'] = $userModel->countAllResults();
             $data['courseCount'] = $courseModel->countAllResults();
 
             $courses = $courseModel->findAll();
-            $data['courses'] = $courses;
+            $data['courses'] = $courses ? $courses : [];
 
-            $data['teachers'] = $userModel->where('role', 'teacher')->findAll();
+            $teachers = $userModel->where('role', 'teacher')->findAll();
+            $data['teachers'] = $teachers ? $teachers : [];
 
-            // Recent activity
-            $data['recentActivities'] = [
-                ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],
-            ];
+            // Load admin notifications
+            $notificationModel = new \App\Models\NotificationModel();
+            $data['notifications'] = $notificationModel->getNotificationsForUser($user_id);
+            $data['unreadCount'] = $notificationModel->getUnreadCount($user_id);
+
+            // Get recent activities
+            $data['recentActivities'] = $this->getRecentActivities();
         } elseif ($role === 'teacher') {
             $courseModel = new \App\Models\CourseModel();
             $enrollmentModel = new \App\Models\EnrollmentModel();
@@ -235,11 +635,17 @@ class Course extends BaseController
 
             $teacherCourses = [];
             foreach ($courses as $course) {
-                $studentCount = $enrollmentModel->where('course_id', $course['id'])->countAllResults();
+                $approvedCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'approved')->countAllResults();
+                $pendingCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'pending')->countAllResults();
                 $teacherCourses[] = [
                     'id' => $course['id'],
                     'title' => $course['title'],
-                    'students' => $studentCount,
+                    'description' => $course['description'] ?? '',
+                    'day' => $course['day'] ?? '',
+                    'time' => $course['time'] ?? '',
+                    'room' => $course['room'] ?? '',
+                    'students' => $approvedCount,
+                    'pending_count' => $pendingCount,
                     'status' => 'active'
                 ];
             }
@@ -254,14 +660,20 @@ class Course extends BaseController
             $courseModel = new \App\Models\CourseModel();
             $user_id = $session->get('user_id');
 
-            // Get enrolled courses
+            // Get approved enrolled courses
             $enrolledCourses = $enrollmentModel->getUserEnrollments($user_id);
             $data['enrolledCourses'] = $enrolledCourses;
+
+            // Get pending enrollments
+            $pendingEnrollments = $enrollmentModel->getUserPendingEnrollments($user_id);
+            $data['pendingEnrollments'] = $pendingEnrollments;
 
             // Get all courses
             $allCourses = $courseModel->findAll();
 
-            $enrolledCourseIds = array_column($enrolledCourses, 'course_id');
+            // Get all enrollment IDs (approved, pending, rejected) to exclude from available courses
+            $allEnrollments = $enrollmentModel->where('user_id', $user_id)->findAll();
+            $enrolledCourseIds = array_column($allEnrollments, 'course_id');
 
             $availableCourses = array_filter($allCourses, function($course) use ($enrolledCourseIds) {
                 return !in_array($course['id'], $enrolledCourseIds);

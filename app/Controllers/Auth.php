@@ -151,10 +151,8 @@ class Auth extends BaseController
             $courses = $courseModel->findAll();
             $data['courses'] = $courses;
 
-            // Recent activity
-            $data['recentActivities'] = [
-                ['name'=>'Jane Smith','role'=>'Teacher','action'=>'Added','target'=>'New Course: "Math 101"','created_at'=>'2025-09-21 09:50'],
-            ];
+            // Get recent activities
+            $data['recentActivities'] = $this->getRecentActivities();
         } elseif ($role === 'teacher') {
             $courseModel = new \App\Models\CourseModel();
             $enrollmentModel = new \App\Models\EnrollmentModel();

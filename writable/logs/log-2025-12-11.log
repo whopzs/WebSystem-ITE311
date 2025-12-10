@@ -54,3 +54,1735 @@ in APPPATH\Views\courses\index.php on line 132.
  9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
 10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
 11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 06:20:12 --> mysqli_sql_exception: Column 'instructor_id' cannot be null in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(155): CodeIgniter\Model->insert(Array)
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->create()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 06:20:12 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+[Method: POST, Route: course/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:12 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:12\', \'2025-12-11 06:20:12\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:12\', \'2025-12-11 06:20:12\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:12 --> [Caused by] mysqli_sql_exception: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:12\', \'2025-12-11 06:20:12\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:12\', \'2025-12-11 06:20:12\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:12\', \'2025-12-11 06:20:12\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 06:20:14 --> mysqli_sql_exception: Column 'instructor_id' cannot be null in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(155): CodeIgniter\Model->insert(Array)
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->create()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 06:20:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+[Method: POST, Route: course/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:14\', \'2025-12-11 06:20:14\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:14\', \'2025-12-11 06:20:14\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:14 --> [Caused by] mysqli_sql_exception: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:14\', \'2025-12-11 06:20:14\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:14\', \'2025-12-11 06:20:14\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:14\', \'2025-12-11 06:20:14\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 06:20:22 --> mysqli_sql_exception: Column 'instructor_id' cannot be null in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(155): CodeIgniter\Model->insert(Array)
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->create()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 06:20:22 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+[Method: POST, Route: course/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:22 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:22\', \'2025-12-11 06:20:22\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:22\', \'2025-12-11 06:20:22\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:22 --> [Caused by] mysqli_sql_exception: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:22\', \'2025-12-11 06:20:22\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:22\', \'2025-12-11 06:20:22\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:22\', \'2025-12-11 06:20:22\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 06:20:24 --> mysqli_sql_exception: Column 'instructor_id' cannot be null in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(155): CodeIgniter\Model->insert(Array)
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->create()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 06:20:24 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+[Method: POST, Route: course/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:24 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:24\', \'2025-12-11 06:20:24\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:24\', \'2025-12-11 06:20:24\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:24 --> [Caused by] mysqli_sql_exception: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:24\', \'2025-12-11 06:20:24\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:24\', \'2025-12-11 06:20:24\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:24\', \'2025-12-11 06:20:24\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 06:20:26 --> mysqli_sql_exception: Column 'instructor_id' cannot be null in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `co...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `co...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `co...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `co...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(838): CodeIgniter\Model->doInsert(Array)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(797): CodeIgniter\BaseModel->insert(Array, true)
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(155): CodeIgniter\Model->insert(Array)
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->create()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 06:20:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+[Method: POST, Route: course/create]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 2 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 3 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 4 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 5 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:26\', \'2025-12-11 06:20:26\')')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:26\', \'2025-12-11 06:20:26\')')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 4 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 5 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 6 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 7 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 06:20:26 --> [Caused by] mysqli_sql_exception: Column 'instructor_id' cannot be null
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:26\', \'2025-12-11 06:20:26\')', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:26\', \'2025-12-11 06:20:26\')')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (\'introduction for programming\', \'\', \'ahdshahdhadhahdhahd\', \'2nd Semester\', \'Prelim\', \'2025-2026\', NULL, \'2025-12-11 06:20:26\', \'2025-12-11 06:20:26\')')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(2345): CodeIgniter\Database\BaseConnection->query('INSERT INTO `courses` (`title`, `course_number`, `description`, `semester`, `term`, `academic_year`, `instructor_id`, `created_at`, `updated_at`) VALUES (:title:, :course_number:, :description:, :semester:, :term:, :academic_year:, :instructor_id:, :created_at:, :updated_at:)', [...], false)
+ 5 SYSTEMPATH\Model.php(394): CodeIgniter\Database\BaseBuilder->insert()
+ 6 SYSTEMPATH\BaseModel.php(838): CodeIgniter\Model->doInsert([...])
+ 7 SYSTEMPATH\Model.php(797): CodeIgniter\BaseModel->insert([...], true)
+ 8 APPPATH\Controllers\Course.php(155): CodeIgniter\Model->insert([...])
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->create()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:05:03 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(547): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:05:03 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(547): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:03 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(547): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:03 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(547): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:05:42 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:05:42 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:42 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:42 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:05:43 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:05:43 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:43 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:05:43 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:04 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:04 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:04 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:04 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:06 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:06 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:06 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:06 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:11 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:11 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:11 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:11 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:14 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:14 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:14 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:14 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:14 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:14 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:15 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:15 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:15 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:15 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:16 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:16 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:16 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:16 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:07:17 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:07:17 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:17 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:07:17 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:09:20 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:09:20 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:20 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:20 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:09:26 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:09:26 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:26 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:26 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:09:28 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:09:28 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:28 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:28 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+ERROR - 2025-12-11 07:09:30 --> mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause' in F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php:327
+Stack trace:
+#0 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollm...', 0)
+#1 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollm...')
+#2 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollm...')
+#3 F:\xammp\htdocs\ITE311-LAGSIL\system\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollm...', Array, false)
+#4 F:\xammp\htdocs\ITE311-LAGSIL\system\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+#5 F:\xammp\htdocs\ITE311-LAGSIL\system\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+#6 F:\xammp\htdocs\ITE311-LAGSIL\app\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+#7 F:\xammp\htdocs\ITE311-LAGSIL\app\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+#8 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(933): App\Controllers\Course->index()
+#9 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+#10 F:\xammp\htdocs\ITE311-LAGSIL\system\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#11 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(363): CodeIgniter\CodeIgniter->run()
+#12 F:\xammp\htdocs\ITE311-LAGSIL\system\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+#13 F:\xammp\htdocs\ITE311-LAGSIL\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+#14 {main}
+CRITICAL - 2025-12-11 07:09:30 --> CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+[Method: GET, Route: course]
+in SYSTEMPATH\Database\BaseConnection.php on line 684.
+ 1 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 2 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 3 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 4 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 5 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:30 --> [Caused by] CodeIgniter\Database\Exceptions\DatabaseException: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 332.
+ 1 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 2 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 4 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 5 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 6 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 7 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 8 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 9 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+10 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+11 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+12 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+13 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:09:30 --> [Caused by] mysqli_sql_exception: Unknown column 'enrollments.status' in 'where clause'
+in SYSTEMPATH\Database\MySQLi\Connection.php on line 327.
+ 1 SYSTEMPATH\Database\MySQLi\Connection.php(327): mysqli->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'', 0)
+ 2 SYSTEMPATH\Database\BaseConnection.php(729): CodeIgniter\Database\MySQLi\Connection->execute('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 3 SYSTEMPATH\Database\BaseConnection.php(646): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = \'4\'
+AND `enrollments`.`status` = \'approved\'')
+ 4 SYSTEMPATH\Database\BaseBuilder.php(1649): CodeIgniter\Database\BaseConnection->query('SELECT `enrollments`.*, `courses`.`title`, `courses`.`description`
+FROM `enrollments`
+JOIN `courses` ON `courses`.`id` = `enrollments`.`course_id`
+WHERE `enrollments`.`user_id` = :enrollments.user_id:
+AND `enrollments`.`status` = :enrollments.status:', [...], false)
+ 5 SYSTEMPATH\Model.php(286): CodeIgniter\Database\BaseBuilder->get()
+ 6 SYSTEMPATH\BaseModel.php(677): CodeIgniter\Model->doFindAll(0, 0)
+ 7 APPPATH\Models\EnrollmentModel.php(25): CodeIgniter\BaseModel->findAll()
+ 8 APPPATH\Controllers\Course.php(549): App\Models\EnrollmentModel->getUserEnrollments('4')
+ 9 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+10 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+11 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+12 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+13 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+14 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
+CRITICAL - 2025-12-11 07:39:43 --> CodeIgniter\View\Exceptions\ViewException: Invalid file: "settings/teacher.php"
+[Method: GET, Route: teacher/settings]
+in SYSTEMPATH\Exceptions\FrameworkException.php on line 39.
+ 1 SYSTEMPATH\View\View.php(214): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('settings/teacher.php')
+ 2 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('settings/teacher', [], true)
+ 3 APPPATH\Controllers\Settings.php(58): view('settings/teacher', [...])
+ 4 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Settings->teacher()
+ 5 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Settings))
+ 6 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 7 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+ 8 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+ 9 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
