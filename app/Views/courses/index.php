@@ -39,8 +39,11 @@
                         <button type="button" class="btn btn-sm me-2" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#assignTeacherModal">
                             + Assign Teacher
                         </button>
-                        <button type="button" class="btn btn-sm" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#createCourseModal">
+                        <button type="button" class="btn btn-sm me-2" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#createCourseModal">
                             + Create Course
+                        </button>
+                        <button type="button" class="btn btn-sm" style="background-color: white; color: maroon; border: 1px solid white;" data-bs-toggle="modal" data-bs-target="#addMaterialsModal">
+                            + View Materials
                         </button>
                     </div>
                 </div>
@@ -517,6 +520,47 @@
                          '&room=' + encodeURIComponent(room));
                 return false;
             }
+            </script>
+        </div>
+    </div>
+</div>
+
+<!-- Add Materials Modal for Admin -->
+<div class="modal fade" id="addMaterialsModal" tabindex="-1" aria-labelledby="addMaterialsModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: maroon; color: white;">
+                <h5 class="modal-title" id="addMaterialsModalLabel">View Materials</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addMaterialsForm">
+                    <div class="mb-3">
+                        <label for="materialsCourseSelect" class="form-label">Select Course</label>
+                        <select class="form-control" id="materialsCourseSelect" required>
+                            <option value="">Select Course</option>
+                            <?php if (!empty($courses)): ?>
+                                <?php foreach ($courses as $course): ?>
+                                    <option value="<?= esc($course['id']) ?>"><?= esc($course['title']) ?></option>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn text-white" id="goToMaterialsBtn" style="background-color: maroon;">Continue</button>
+            </div>
+            <script>
+            document.getElementById('goToMaterialsBtn').addEventListener('click', function() {
+                var courseId = document.getElementById('materialsCourseSelect').value;
+                if (!courseId) {
+                    alert('Please select a course');
+                    return;
+                }
+                window.location.href = '<?= base_url('admin/course/') ?>' + courseId + '/upload';
+            });
             </script>
         </div>
     </div>

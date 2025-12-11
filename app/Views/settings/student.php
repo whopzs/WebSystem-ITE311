@@ -190,10 +190,19 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.success) {
-                    showAlert('success', response.message);
-                    setTimeout(function() {
-                        location.reload();
-                    }, 1000);
+                    if (response.password_changed) {
+                        showAlert('success', response.message);
+                        // Redirect to logout after 1 second
+                        setTimeout(function() {
+                            window.location.href = response.redirect_url;
+                        }, 1000);
+                    } else {
+                        showAlert('success', response.message);
+                        // Reload page after 1 second to reflect changes
+                        setTimeout(function() {
+                            location.reload();
+                        }, 1000);
+                    }
                 } else {
                     showAlert('danger', response.message || 'Failed to update profile');
                     submitBtn.prop('disabled', false).html(originalText);
@@ -269,4 +278,3 @@ $(document).ready(function() {
 </script>
 
 <?= $this->endSection() ?>
-

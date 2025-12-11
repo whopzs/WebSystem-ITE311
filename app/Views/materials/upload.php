@@ -97,7 +97,7 @@
                             <label for="material_file" class="form-label">Select File</label>
                             <input type="file" class="form-control" id="material_file" name="material_file" required>
                             <div class="form-text">
-                                Allowed file types: PDF, DOC, DOCX, PPT.
+                                Allowed file types: PDF, PPT.
                             </div>
                         </div>
 

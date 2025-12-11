@@ -160,6 +160,24 @@ class Settings extends BaseController
                 session()->set('userEmail', $updateData['email']);
             }
 
+            // If password was changed, create notification and indicate logout
+            if (isset($updateData['password'])) {
+                $notificationModel = new \App\Models\NotificationModel();
+                $notificationModel->insert([
+                    'user_id' => $userId,
+                    'message' => 'You successfully changed your password',
+                    'is_read' => 0,
+                    'created_at' => date('Y-m-d H:i:s')
+                ]);
+
+                return $this->response->setJSON([
+                    'success' => true,
+                    'message' => 'You successfully changed your password',
+                    'password_changed' => true,
+                    'redirect_url' => base_url('logout')
+                ]);
+            }
+
             return $this->response->setJSON(['success' => true, 'message' => 'Profile updated successfully']);
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to update profile']);
@@ -197,4 +215,3 @@ class Settings extends BaseController
         ]);
     }
 }
-
