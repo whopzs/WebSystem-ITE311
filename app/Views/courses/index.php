@@ -91,18 +91,7 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <?php if ($course['day'] && $course['time']): ?>
-                                                <button type="button" class="btn btn-sm edit-schedule-btn" style="background-color: maroon; color: white; border: 1px solid maroon;" data-bs-toggle="modal" data-bs-target="#scheduleModal" 
-                                                    data-course-id="<?= $course['id'] ?>" 
-                                                    data-course-title="<?= esc($course['title']) ?>" 
-                                                    data-course-day="<?= esc($course['day']) ?>"
-                                                    data-course-time="<?= esc($course['time']) ?>"
-                                                    data-course-room="<?= esc($course['room'] ?? '') ?>">
-                                                    Edit
-                                                </button>
-                                            <?php else: ?>
-                                                <span class="text-muted">-</span>
-                                            <?php endif; ?>
+                                            <span class="text-muted">-</span>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -126,13 +115,13 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header" style="background-color: maroon; color: white;">
-                <h5 class="modal-title" id="scheduleModalLabel">Manage Course Schedule</h5>
+                <h5 class="modal-title" id="scheduleModalLabel">Create Course Schedule</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="scheduleForm">
                     <input type="hidden" id="scheduleCourseId" name="course_id">
-                    <div class="mb-3">
+                    <div class="mb-3" id="courseSelectorContainer">
                         <label for="scheduleCourseSelect" class="form-label">Select Course</label>
                         <select class="form-control" id="scheduleCourseSelect" required>
                             <option value="">Select Course</option>
@@ -145,6 +134,7 @@
                             <?php endif; ?>
                         </select>
                     </div>
+
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="scheduleDay" class="form-label">Day of Week</label>
@@ -235,7 +225,12 @@
                                 alert('Error parsing response');
                             }
                         } else {
-                            alert('Error: Server returned status ' + xhr.status);
+                            try {
+                                var errorResponse = JSON.parse(xhr.responseText);
+                                alert('Error: ' + (errorResponse.message || 'Server error'));
+                            } catch(e) {
+                                alert('Error: Server returned status ' + xhr.status);
+                            }
                         }
                     }
                 };
@@ -260,15 +255,9 @@
             </div>
             <div class="modal-body">
                 <form id="createCourseForm">
-                    <div class="row">
-                        <div class="col-md-8 mb-3">
-                            <label for="courseTitle" class="form-label">Course Title</label>
-                            <input type="text" class="form-control" id="courseTitle" name="title" required>
-                        </div>
-                        <div class="col-md-4 mb-3">
-                            <label for="courseNumber" class="form-label">Course Number</label>
-                            <input type="text" class="form-control" id="courseNumber" name="course_number" readonly>
-                        </div>
+                    <div class="mb-3">
+                        <label for="courseTitle" class="form-label">Course Title</label>
+                        <input type="text" class="form-control" id="courseTitle" name="title" required>
                     </div>
                     <div class="mb-3">
                         <label for="courseDescription" class="form-label">Description</label>
@@ -315,7 +304,6 @@
                 e.stopPropagation();
                 
                 var title = document.getElementById('courseTitle').value;
-                var courseNumber = document.getElementById('courseNumber').value;
                 var description = document.getElementById('courseDescription').value;
                 var semester = document.getElementById('semester').value;
                 var term = document.getElementById('term').value;
@@ -366,11 +354,10 @@
                         }
                     }
                 };
-                xhr.send('title=' + encodeURIComponent(title) + 
-                         '&course_number=' + encodeURIComponent(courseNumber) + 
-                         '&description=' + encodeURIComponent(description) + 
-                         '&semester=' + encodeURIComponent(semester) + 
-                         '&term=' + encodeURIComponent(term) + 
+                xhr.send('title=' + encodeURIComponent(title) +
+                         '&description=' + encodeURIComponent(description) +
+                         '&semester=' + encodeURIComponent(semester) +
+                         '&term=' + encodeURIComponent(term) +
                          '&academic_year=' + encodeURIComponent(academicYear));
                 return false;
             }
@@ -412,45 +399,6 @@
                             <?php endif; ?>
                         </select>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="assignDay" class="form-label">Day of Week</label>
-                            <select class="form-control" id="assignDay" name="day" required>
-                                <option value="">Select Day</option>
-                                <option value="Monday">Monday</option>
-                                <option value="Tuesday">Tuesday</option>
-                                <option value="Wednesday">Wednesday</option>
-                                <option value="Thursday">Thursday</option>
-                                <option value="Friday">Friday</option>
-                                <option value="Saturday">Saturday</option>
-                                <option value="Sunday">Sunday</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="assignTime" class="form-label">Time</label>
-                            <select class="form-control" id="assignTime" name="time" required>
-                                <option value="">Select Time</option>
-                                <optgroup label="2 Hour Slots">
-                                    <option value="7-9 AM">7-9 AM</option>
-                                    <option value="9-11 AM">9-11 AM</option>
-                                    <option value="11 AM-1 PM">11 AM-1 PM</option>
-                                    <option value="12-2 PM">12-2 PM</option>
-                                    <option value="2-4 PM">2-4 PM</option>
-                                    <option value="4-6 PM">4-6 PM</option>
-                                </optgroup>
-                                <optgroup label="3 Hour Slots">
-                                    <option value="7-10 AM">7-10 AM</option>
-                                    <option value="10 AM-1 PM">10 AM-1 PM</option>
-                                    <option value="12-3 PM">12-3 PM</option>
-                                    <option value="3-6 PM">3-6 PM</option>
-                                </optgroup>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="assignRoom" class="form-label">Room</label>
-                        <input type="text" class="form-control" id="assignRoom" name="room" placeholder="e.g., Room 101" required>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -461,18 +409,12 @@
             function assignTeacherNow(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                
+
                 var courseId = document.getElementById('assignCourseSelect').value;
                 var teacherId = document.getElementById('assignTeacherSelect').value;
-                var day = document.getElementById('assignDay').value;
-                var time = document.getElementById('assignTime').value;
-                var room = document.getElementById('assignRoom').value;
-                
+
                 if (!courseId) { alert('Please select a course'); return false; }
                 if (!teacherId) { alert('Please select a teacher'); return false; }
-                if (!day) { alert('Please select a day'); return false; }
-                if (!time) { alert('Please select a time'); return false; }
-                if (!room || room.trim() === '') { alert('Please enter a room'); return false; }
                 
                 var csrfToken = document.querySelector('meta[name="X-CSRF-TOKEN"]')?.getAttribute('content') || '';
                 var btn = document.getElementById('assignTeacherBtn');
@@ -513,11 +455,8 @@
                         }
                     }
                 };
-                xhr.send('course_id=' + encodeURIComponent(courseId) + 
-                         '&teacher_id=' + encodeURIComponent(teacherId) + 
-                         '&day=' + encodeURIComponent(day) + 
-                         '&time=' + encodeURIComponent(time) + 
-                         '&room=' + encodeURIComponent(room));
+                xhr.send('course_id=' + encodeURIComponent(courseId) +
+                         '&teacher_id=' + encodeURIComponent(teacherId));
                 return false;
             }
             </script>
@@ -566,6 +505,8 @@
     </div>
 </div>
 
+
+
 <!-- Teacher Dashboard-->
 <?php elseif ($userRole === 'teacher'): ?>
 
@@ -610,10 +551,11 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <button type="button" class="btn btn-sm view-course-btn" style="background-color: maroon; color: white; border: 1px solid maroon;" 
+                                    <button type="button" class="btn btn-sm view-course-btn" style="background-color: maroon; color: white; border: 1px solid maroon;"
                                         data-bs-toggle="modal" data-bs-target="#viewCourseModal"
                                         data-course-id="<?= esc($course['id']) ?>"
                                         data-course-title="<?= esc($course['title']) ?>"
+                                        data-course-number="<?= esc($course['course_number'] ?? '') ?>"
                                         data-course-description="<?= esc($course['description'] ?? '') ?>"
                                         data-course-day="<?= esc($course['day'] ?? '') ?>"
                                         data-course-time="<?= esc($course['time'] ?? '') ?>"
@@ -689,9 +631,13 @@
                     </div>
                 </div>
                 <div class="row mb-3">
-                    <div class="col-md-12">
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">Course Number:</label>
+                        <p id="viewCourseNumber" class="text-muted">-</p>
+                    </div>
+                    <div class="col-md-6">
                         <label class="form-label fw-bold">Description:</label>
-                        <p id="viewCourseDescription" class="text-muted"></p>
+                        <p id="viewCourseDescription" class="text-muted">No description available</p>
                     </div>
                 </div>
                 <div class="row mb-3">
@@ -739,6 +685,7 @@ document.addEventListener('DOMContentLoaded', function() {
             var button = event.relatedTarget;
             var courseId = button.getAttribute('data-course-id');
             var courseTitle = button.getAttribute('data-course-title');
+            var courseNumber = button.getAttribute('data-course-number');
             var courseDescription = button.getAttribute('data-course-description');
             var courseDay = button.getAttribute('data-course-day');
             var courseTime = button.getAttribute('data-course-time');
@@ -748,7 +695,10 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Update modal title
             document.getElementById('viewCourseTitle').textContent = courseTitle || '-';
-            
+
+            // Update course number
+            document.getElementById('viewCourseNumber').textContent = courseNumber || '-';
+
             // Update description
             document.getElementById('viewCourseDescription').textContent = courseDescription || 'No description available';
             
@@ -777,6 +727,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+
+
 });
 
 function loadPendingEnrollments(courseId) {
@@ -890,6 +842,7 @@ function showAlert(type, message) {
     setTimeout(function() {
         $('.alert').alert('close');
     }, 5000);
+
 }
 </script>
 
@@ -1003,6 +956,7 @@ function showAlert(type, message) {
             </div>
         </div>
     </div>
+
 
     <!-- Available Courses -->
     <div class="col-lg-6" id="available-courses">
@@ -1297,22 +1251,7 @@ $(document).ready(function() {
         });
     });
 
-    // Create Course Modal
-    $('#courseTitle').on('input', function() {
-        var title = $(this).val().toUpperCase().replace(/[^A-Z\s]/g, '').trim();
-        var words = title.split(' ').filter(word => word.length > 0);
-        var acronym = '';
-        if (words.length >= 3) {
-            acronym = words.slice(0, 3).map(word => word.charAt(0)).join('') + Math.floor(Math.random() * 10);
-        } else if (words.length === 2) {
-            acronym = words[0].charAt(0) + words[1].charAt(0) + Math.floor(Math.random() * 100);
-        } else if (words.length === 1 && words[0].length >= 2) {
-            acronym = words[0].substring(0, 3).toUpperCase();
-        } else {
-            acronym = 'CN' + Math.floor(Math.random() * 1000);
-        }
-        $('#courseNumber').val(acronym);
-    });
+
 
     $('#createCourseBtn').on('click', function(e) {
         e.preventDefault();
@@ -1343,290 +1282,71 @@ $(document).ready(function() {
         });
     });
 
-    // ========== SCHEDULE SAVE LOGIC ==========
-    
-    // When modal opens, populate fields if editing
-    $('#scheduleModal').on('shown.bs.modal', function (event) {
-        var button = event.relatedTarget;
-        if (!button) {
-            // Creating - clear fields
-            resetScheduleModal();
-            return;
-        }
-        
-        var action = button.getAttribute('data-action');
-        var courseId = button.getAttribute('data-course-id');
-        
-        // Check if this is a create action (from Create Schedule button)
-        if (action === 'create' || !courseId) {
-            // Creating - clear fields
-            resetScheduleModal();
-            return;
-        }
-        
-        // Editing - read data attributes directly from HTML
-        var courseDay = button.getAttribute('data-course-day') || '';
-        var courseTime = button.getAttribute('data-course-time') || '';
-        var courseRoom = button.getAttribute('data-course-room') || '';
-        
-        console.log('Editing schedule - Modal opened with data:', {courseId, courseDay, courseTime, courseRoom});
-        
-        // Set hidden course ID
-        var courseIdEl = document.getElementById('scheduleCourseId');
-        if (courseIdEl) courseIdEl.value = courseId;
-        
-        // Set course select and disable it
-        var courseSelect = document.getElementById('scheduleCourseSelect');
-        if (courseSelect) {
-            courseSelect.value = courseId;
-            courseSelect.disabled = true;
-        }
-        
-        // Set day
-        var daySelect = document.getElementById('scheduleDay');
-        if (daySelect && courseDay) {
-            daySelect.value = courseDay;
-            console.log('Set day to:', courseDay, 'Current value:', daySelect.value);
-        }
-        
-        // Set time
-        var timeSelect = document.getElementById('scheduleTime');
-        if (timeSelect && courseTime) {
-            timeSelect.value = courseTime;
-            console.log('Set time to:', courseTime, 'Current value:', timeSelect.value);
-        }
-        
-        // Set room
-        var roomInput = document.getElementById('scheduleRoom');
-        if (roomInput) {
-            roomInput.value = courseRoom || '';
-            console.log('Set room to:', courseRoom);
-        }
-        
-        // Update modal title
-        var modalLabel = document.getElementById('scheduleModalLabel');
-        if (modalLabel) modalLabel.textContent = 'Edit Course Schedule';
-    });
-    
-    // Helper function to reset modal for creating new schedule
-    function resetScheduleModal() {
-        $('#scheduleCourseId').val('');
-        $('#scheduleCourseSelect').val('').prop('disabled', false);
-        $('#scheduleDay').val('');
-        $('#scheduleTime').val('');
-        $('#scheduleRoom').val('');
-        $('#scheduleModalLabel').text('Create Course Schedule');
-    }
-
-    // Reset modal when closed (only if not editing)
+    // Reset modal when closed
     $('#scheduleModal').on('hidden.bs.modal', function () {
-        // Clear all fields
-        $('#scheduleCourseId').val('');
-        $('#scheduleCourseSelect').val('').prop('disabled', false);
+        $('#scheduleCourseSelect').val('');
         $('#scheduleDay').val('');
         $('#scheduleTime').val('');
         $('#scheduleRoom').val('');
-        $('#scheduleModalLabel').text('Create Course Schedule');
     });
-    
 
     // Update hidden course_id when dropdown changes
     $('#scheduleCourseSelect').on('change', function() {
         $('#scheduleCourseId').val($(this).val());
     });
 
-    // Save Schedule function
-    function saveSchedule() {
-        console.log('saveSchedule function called'); // Debug
-        
-        // Get values
-        var courseId = $('#scheduleCourseId').val() || $('#scheduleCourseSelect').val();
+    // Save Schedule
+    $('#saveScheduleBtn').on('click', function(e) {
+        e.preventDefault();
+
+        var courseId = $('#scheduleCourseSelect').val();
         var day = $('#scheduleDay').val();
         var time = $('#scheduleTime').val();
         var room = $('#scheduleRoom').val();
-        
-        console.log('Form values:', {courseId, day, time, room}); // Debug
-        
-        // Validate
-        if (!courseId) {
-            alert('Please select a course');
-            return false;
-        }
-        if (!day) {
-            alert('Please select a day');
-            return false;
-        }
-        if (!time) {
-            alert('Please select a time');
-            return false;
-        }
-        if (!room || room.trim() === '') {
-            alert('Please enter a room');
-            return false;
-        }
-        
-        // Get CSRF token
+
+        if (!courseId) { alert('Please select a course'); return false; }
+        if (!day) { alert('Please select a day'); return false; }
+        if (!time) { alert('Please select a time'); return false; }
+        if (!room || room.trim() === '') { alert('Please enter a room'); return false; }
+
         var csrfToken = $('meta[name="X-CSRF-TOKEN"]').attr('content') || '<?= csrf_hash() ?>';
-        
-        // Prepare data
-        var data = {
-            course_id: courseId,
-            day: day,
-            time: time,
-            room: room
-        };
-        
-        // Disable button
-        var btn = $('#saveScheduleBtn');
+
+        var btn = $(this);
         var originalText = btn.html();
         btn.prop('disabled', true).html('Saving...');
-        
-        // Send AJAX request
-        console.log('Sending AJAX request...', data); // Debug
+
         $.ajax({
             url: '<?= base_url('course/saveSchedule') ?>',
             type: 'POST',
-            data: data,
+            data: {
+                course_id: courseId,
+                day: day,
+                time: time,
+                room: room
+            },
             headers: {
                 'X-CSRF-TOKEN': csrfToken
             },
             dataType: 'json',
             success: function(response) {
-                console.log('AJAX Success:', response); // Debug
                 btn.prop('disabled', false).html(originalText);
-                
-                if (response && response.success) {
+
+                if (response.success) {
                     alert('Schedule saved successfully!');
                     $('#scheduleModal').modal('hide');
                     location.reload();
                 } else {
-                    alert('Error: ' + (response && response.message ? response.message : 'Failed to save schedule'));
+                    alert('Error: ' + (response.message || 'Failed to save schedule'));
                 }
             },
-            error: function(xhr, status, error) {
-                console.error('AJAX Error:', xhr, status, error); // Debug
+            error: function(xhr) {
                 btn.prop('disabled', false).html(originalText);
-                
-                var errorMsg = 'Error saving schedule';
-                if (xhr.responseJSON && xhr.responseJSON.message) {
-                    errorMsg = xhr.responseJSON.message;
-                } else if (xhr.responseText) {
-                    try {
-                        var parsed = JSON.parse(xhr.responseText);
-                        if (parsed.message) {
-                            errorMsg = parsed.message;
-                        }
-                    } catch(e) {
-                        errorMsg = 'Server error occurred';
-                    }
-                }
-                alert('Error: ' + errorMsg);
+                alert('Error saving schedule');
+                console.error(xhr.responseText);
             }
         });
-        
+
         return false;
-    }
-    
-    // Make function globally accessible for inline onclick
-    window.saveScheduleHandler = function() {
-        console.log('saveScheduleHandler called from inline onclick');
-        return saveSchedule();
-    };
-    
-    // Attach handler using event delegation (works even if button is in modal)
-    $(document).on('click', '#saveScheduleBtn', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Save Schedule button clicked (delegation)!');
-        return saveSchedule();
-    });
-    
-    // Also attach directly as backup
-    $('#saveScheduleBtn').on('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        console.log('Save Schedule button clicked (direct)!');
-        return saveSchedule();
-    });
-    
-    // Test if button exists after modal is shown and attach pure JS handler
-    $('#scheduleModal').on('shown.bs.modal', function() {
-        console.log('Modal shown, button exists:', $('#saveScheduleBtn').length > 0);
-        
-        // Attach pure JavaScript handler as backup
-        var saveBtn = document.getElementById('saveScheduleBtn');
-        if (saveBtn && !saveBtn.hasAttribute('data-handler-attached')) {
-            saveBtn.setAttribute('data-handler-attached', 'true');
-            saveBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                console.log('Pure JS handler fired!');
-                
-                var courseId = document.getElementById('scheduleCourseId').value || document.getElementById('scheduleCourseSelect').value;
-                var day = document.getElementById('scheduleDay').value;
-                var time = document.getElementById('scheduleTime').value;
-                var room = document.getElementById('scheduleRoom').value;
-                
-                console.log('Values:', {courseId, day, time, room});
-                
-                if (!courseId) { alert('Please select a course'); return false; }
-                if (!day) { alert('Please select a day'); return false; }
-                if (!time) { alert('Please select a time'); return false; }
-                if (!room || room.trim() === '') { alert('Please enter a room'); return false; }
-                
-                var csrfToken = document.querySelector('meta[name="X-CSRF-TOKEN"]')?.getAttribute('content') || '<?= csrf_hash() ?>';
-                
-                var btn = this;
-                var originalText = btn.innerHTML;
-                btn.disabled = true;
-                btn.innerHTML = 'Saving...';
-                
-                var formData = new URLSearchParams();
-                formData.append('course_id', courseId);
-                formData.append('day', day);
-                formData.append('time', time);
-                formData.append('room', room);
-                
-                fetch('<?= base_url('course/saveSchedule') ?>', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                        'X-CSRF-TOKEN': csrfToken
-                    },
-                    body: formData.toString()
-                })
-                .then(response => {
-                    console.log('Response status:', response.status);
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Response data:', data);
-                    btn.disabled = false;
-                    btn.innerHTML = originalText;
-                    if (data && data.success) {
-                        alert('Schedule saved successfully!');
-                        var modalElement = document.getElementById('scheduleModal');
-                        var modal = bootstrap.Modal.getInstance(modalElement);
-                        if (modal) {
-                            modal.hide();
-                        }
-                        setTimeout(function() {
-                            location.reload();
-                        }, 500);
-                    } else {
-                        alert('Error: ' + (data && data.message ? data.message : 'Failed to save schedule'));
-                    }
-                })
-                .catch(error => {
-                    console.error('Fetch error:', error);
-                    btn.disabled = false;
-                    btn.innerHTML = originalText;
-                    alert('Error: ' + error.message);
-                });
-                
-                return false;
-            });
-        }
     });
 
     // Reset assign teacher modal when shown

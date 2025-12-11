@@ -291,6 +291,14 @@ class Course extends BaseController
 
         $courseModel = new \App\Models\CourseModel();
 
+        $title = $this->request->getPost('title');
+        $courseNumber = $this->request->getPost('course_number');
+
+        // Auto-generate course number if not provided
+        if (empty($courseNumber)) {
+            $courseNumber = $this->generateCourseNumber($title);
+        }
+
         $data = [
             'title' => $this->request->getPost('title'),
             'course_number' => $this->request->getPost('course_number'),
@@ -349,7 +357,7 @@ class Course extends BaseController
             return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
         }
 
-        // Check for schedule conflicts if the course has a teacher assigned
+        // Check for teacher schedule conflicts if the course has a teacher assigned
         if (!empty($course['instructor_id']) && $day && $time) {
             $conflictingCourses = $courseModel
                 ->where('instructor_id', $course['instructor_id'])
@@ -363,6 +371,24 @@ class Course extends BaseController
                 return $this->response->setStatusCode(400)->setJSON([
                     'success' => false,
                     'message' => "Schedule conflict! The teacher already has another course ({$conflictCourse['title']}) scheduled on {$day} at {$time}. Please choose a different day or time."
+                ]);
+            }
+        }
+
+        // Check for room schedule conflicts if room, day, and time are provided
+        if (!empty($room) && $day && $time) {
+            $roomConflictingCourses = $courseModel
+                ->where('room', $room)
+                ->where('day', $day)
+                ->where('time', $time)
+                ->where('id !=', $courseId)
+                ->findAll();
+
+            if (!empty($roomConflictingCourses)) {
+                $conflictCourse = $roomConflictingCourses[0];
+                return $this->response->setStatusCode(400)->setJSON([
+                    'success' => false,
+                    'message' => "Room conflict! Room {$room} is already booked for another course ({$conflictCourse['title']}) on {$day} at {$time}. Please choose a different room, day, or time."
                 ]);
             }
         }
@@ -503,9 +529,6 @@ class Course extends BaseController
 
         $courseId = $this->request->getPost('course_id');
         $teacherId = $this->request->getPost('teacher_id');
-        $day = $this->request->getPost('day');
-        $time = $this->request->getPost('time');
-        $room = $this->request->getPost('room');
 
         if (!$courseId || !$teacherId) {
             return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Course ID and Teacher ID are required']);
@@ -517,38 +540,10 @@ class Course extends BaseController
             return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
         }
 
-        // Check for schedule conflicts - if day and time are provided
-        if ($day && $time) {
-            $conflictingCourses = $courseModel
-                ->where('instructor_id', $teacherId)
-                ->where('day', $day)
-                ->where('time', $time)
-                ->where('id !=', $courseId)
-                ->findAll();
-
-            if (!empty($conflictingCourses)) {
-                $conflictCourse = $conflictingCourses[0];
-                return $this->response->setStatusCode(400)->setJSON([
-                    'success' => false,
-                    'message' => "Schedule conflict! The teacher already has a course ({$conflictCourse['title']}) scheduled on {$day} at {$time}. Please choose a different day or time."
-                ]);
-            }
-        }
-
-        // Update course with teacher assignment and schedule
+        // Update course with teacher assignment only (no schedule)
         $updateData = [
             'instructor_id' => $teacherId,
         ];
-
-        if ($day) {
-            $updateData['day'] = $day;
-        }
-        if ($time) {
-            $updateData['time'] = $time;
-        }
-        if ($room) {
-            $updateData['room'] = $room;
-        }
 
         $updated = $courseModel->update($courseId, $updateData);
 
@@ -558,33 +553,25 @@ class Course extends BaseController
             $userModel = new \App\Models\UserModel();
             $teacher = $userModel->find($teacherId);
             $courseTitle = $course['title'];
-            
-            $scheduleInfo = '';
-            if ($day && $time) {
-                $scheduleInfo = " Schedule: {$day} at {$time}";
-                if ($room) {
-                    $scheduleInfo .= " in Room {$room}";
-                }
-            }
-            
+
             $notificationData = [
                 'user_id' => $teacherId,
-                'message' => "You have been assigned to teach '{$courseTitle}'.{$scheduleInfo}",
+                'message' => "You have been assigned to teach '{$courseTitle}'.",
                 'is_read' => 0,
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $notificationModel->insert($notificationData);
-            
+
             // Also notify admin
             $adminId = session()->get('user_id');
             $adminNotification = [
                 'user_id' => $adminId,
-                'message' => "Teacher {$teacher['name']} has been assigned to course '{$courseTitle}'.{$scheduleInfo}",
+                'message' => "Teacher {$teacher['name']} has been assigned to course '{$courseTitle}'.",
                 'is_read' => 0,
                 'created_at' => date('Y-m-d H:i:s')
             ];
             $notificationModel->insert($adminNotification);
-            
+
             return $this->response->setJSON(['success' => true, 'message' => 'Teacher assigned to course successfully']);
         } else {
             return $this->response->setStatusCode(500)->setJSON(['success' => false, 'message' => 'Failed to assign teacher to course']);
@@ -637,16 +624,26 @@ class Course extends BaseController
             foreach ($courses as $course) {
                 $approvedCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'approved')->countAllResults();
                 $pendingCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'pending')->countAllResults();
+
+                // Auto-generate course number if missing
+                $courseNumber = $course['course_number'] ?? '';
+                if (empty($courseNumber)) {
+                    $courseNumber = $this->generateCourseNumber($course['title']);
+                    // Update the database with the new course number
+                    $courseModel->update($course['id'], ['course_number' => $courseNumber]);
+                }
+
                 $teacherCourses[] = [
                     'id' => $course['id'],
                     'title' => $course['title'],
-                    'description' => $course['description'] ?? '',
+                    'course_number' => $courseNumber,
+                    'description' => $course['description'] ?? 'No description available',
                     'day' => $course['day'] ?? '',
                     'time' => $course['time'] ?? '',
                     'room' => $course['room'] ?? '',
                     'students' => $approvedCount,
                     'pending_count' => $pendingCount,
-                    'status' => 'active'
+                    'status' => $course['status'] ?? 'active'
                 ];
             }
 
@@ -690,5 +687,44 @@ class Course extends BaseController
         }
 
         return view('courses/index', $data);
+    }
+
+    private function generateCourseNumber($title)
+    {
+        // Clean and process the title
+        $cleanTitle = strtoupper(trim($title));
+        $cleanTitle = preg_replace('/[^A-Z\s]/', '', $cleanTitle); // Remove non-letter characters except spaces
+        $words = array_filter(explode(' ', $cleanTitle)); // Split into words and remove empty entries
+
+        // Generate acronym based on word count
+        if (count($words) >= 3) {
+            // Take first 3 words' first letters plus a number
+            $acronym = substr($words[0], 0, 1) . substr($words[1], 0, 1) . substr($words[2], 0, 1) . rand(1, 9);
+        } elseif (count($words) === 2) {
+            // Take first 2 words' first letters plus 2-digit number
+            $acronym = substr($words[0], 0, 1) . substr($words[1], 0, 1) . rand(10, 99);
+        } elseif (count($words) === 1) {
+            // Take first 3 letters of single word
+            $acronym = substr($words[0], 0, 3);
+        } else {
+            // Fallback
+            $acronym = 'CN' . rand(100, 999);
+        }
+
+        // Ensure uniqueness by checking database
+        $courseModel = new \App\Models\CourseModel();
+        $originalAcronym = $acronym;
+        $counter = 1;
+
+        while ($courseModel->where('course_number', $acronym)->countAllResults() > 0) {
+            $acronym = $originalAcronym . $counter;
+            $counter++;
+            if ($counter > 99) { // Prevent infinite loop
+                $acronym = $originalAcronym . rand(100, 999);
+                break;
+            }
+        }
+
+        return $acronym;
     }
 }

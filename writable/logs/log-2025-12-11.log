@@ -1818,3 +1818,17 @@ Stack trace:
 #10 C:\xampp\htdocs\ITE311-LAGSIL\system\Boot.php(133): CodeIgniter\Boot::runCommand(Object(CodeIgniter\CLI\Console))
 #11 C:\xampp\htdocs\ITE311-LAGSIL\spark(87): CodeIgniter\Boot::bootSpark(Object(Config\Paths))
 #12 {main}
+CRITICAL - 2025-12-11 11:33:33 --> CodeIgniter\Exceptions\RuntimeException: View themes, no current section.
+[Method: GET, Route: course]
+in SYSTEMPATH\View\View.php on line 430.
+ 1 APPPATH\Views\courses\index.php(1685): CodeIgniter\View\View->endSection()
+ 2 SYSTEMPATH\View\View.php(226): include('C:\\xampp\\htdocs\\ITE311-LAGSIL\\app\\Views\\courses\\index.php')
+ 3 SYSTEMPATH\View\View.php(229): CodeIgniter\View\View->CodeIgniter\View\{closure}()
+ 4 SYSTEMPATH\Common.php(1167): CodeIgniter\View\View->render('courses/index', [], true)
+ 5 APPPATH\Controllers\Course.php(710): view('courses/index', [...])
+ 6 SYSTEMPATH\CodeIgniter.php(933): App\Controllers\Course->index()
+ 7 SYSTEMPATH\CodeIgniter.php(507): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Course))
+ 8 SYSTEMPATH\CodeIgniter.php(354): CodeIgniter\CodeIgniter->handleRequest(null, Object(Config\Cache), false)
+ 9 SYSTEMPATH\Boot.php(363): CodeIgniter\CodeIgniter->run()
+10 SYSTEMPATH\Boot.php(68): CodeIgniter\Boot::runCodeIgniter(Object(CodeIgniter\CodeIgniter))
+11 FCPATH\index.php(62): CodeIgniter\Boot::bootWeb(Object(Config\Paths))
