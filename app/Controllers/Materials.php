@@ -48,6 +48,10 @@ class Materials extends BaseController
             // Handle file upload
             $file = $this->request->getFile('material_file');
 
+            if (strtolower($file->getExtension()) === 'mp4') {
+                return redirect()->back()->withInput()->with('upload_error', 'MP4 files are not allowed.');
+            }
+
             if ($file->isValid() && !$file->hasMoved()) {
                 // Generate unique filename
                 $newName = $file->getRandomName();
