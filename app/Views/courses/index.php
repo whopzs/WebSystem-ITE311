@@ -106,7 +106,15 @@
                                             <?php endif; ?>
                                         </td>
                                         <td>
-                                            <span class="text-muted">-</span>
+                                            <button type="button" class="btn btn-sm" style="background-color: maroon; color: white; border: 1px solid maroon;" data-bs-toggle="modal" data-bs-target="#editCourseModal"
+                                                data-course-id="<?= esc($course['id']) ?>"
+                                                data-course-title="<?= esc($course['title']) ?>"
+                                                data-teacher-id="<?= esc($course['instructor_id'] ?: '') ?>"
+                                                data-day="<?= esc($course['day'] ?: '') ?>"
+                                                data-time="<?= esc($course['time'] ?: '') ?>"
+                                                data-room="<?= esc($course['room'] ?: '') ?>">
+                                                Edit
+                                            </button>
                                         </td>
                                     </tr>
                                 <?php endforeach; ?>
@@ -520,7 +528,236 @@
     </div>
 </div>
 
+<!-- Edit Course Modal -->
+<div class="modal fade" id="editCourseModal" tabindex="-1" aria-labelledby="editCourseModalLabel">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: maroon; color: white;">
+                <h5 class="modal-title" id="editCourseModalLabel">Edit Course</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editCourseForm">
+                    <input type="hidden" id="editCourseId" name="course_id">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editTeacherSelect" class="form-label">Assign Teacher</label>
+                            <select class="form-control" id="editTeacherSelect" name="teacher_id">
+                                <option value="">Not assigned</option>
+                                <?php if (!empty($teachers)): ?>
+                                    <?php foreach ($teachers as $teacher): ?>
+                                        <?php if (isset($teacher['id']) && isset($teacher['name']) && isset($teacher['email'])): ?>
+                                            <option value="<?= esc($teacher['id']) ?>"><?= esc($teacher['name']) ?> - (<?= esc($teacher['email']) ?>)</option>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editDay" class="form-label">Day of Week</label>
+                            <select class="form-control" id="editDay" required>
+                                <option value="">Select Day</option>
+                                <option value="Monday">Monday</option>
+                                <option value="Tuesday">Tuesday</option>
+                                <option value="Wednesday">Wednesday</option>
+                                <option value="Thursday">Thursday</option>
+                                <option value="Friday">Friday</option>
+                                <option value="Saturday">Saturday</option>
+                                <option value="Sunday">Sunday</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="editTime" class="form-label">Time</label>
+                            <select class="form-control" id="editTime" required>
+                                <option value="">Select Time</option>
+                                <optgroup label="2 Hour Slots">
+                                    <option value="7-9 AM">7-9 AM</option>
+                                    <option value="9-11 AM">9-11 AM</option>
+                                    <option value="11 AM-1 PM">11 AM-1 PM</option>
+                                    <option value="12-2 PM">12-2 PM</option>
+                                    <option value="2-4 PM">2-4 PM</option>
+                                    <option value="4-6 PM">4-6 PM</option>
+                                </optgroup>
+                                <optgroup label="3 Hour Slots">
+                                    <option value="7-10 AM">7-10 AM</option>
+                                    <option value="10 AM-1 PM">10 AM-1 PM</option>
+                                    <option value="12-3 PM">12-3 PM</option>
+                                    <option value="3-6 PM">3-6 PM</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="editRoom" class="form-label">Room</label>
+                            <input type="text" class="form-control" id="editRoom" placeholder="e.g., Room 101" required>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn text-white" id="saveEditBtn" onclick="saveEdit(event)" style="background-color: maroon;">Save Changes</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<script>
+// Edit Course Modal Handler and Functions
+document.addEventListener('DOMContentLoaded', function() {
+    var editCourseModal = document.getElementById('editCourseModal');
+    if (editCourseModal) {
+        editCourseModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget;
+            var courseId = button.getAttribute('data-course-id');
+            var courseTitle = button.getAttribute('data-course-title');
+            var teacherId = button.getAttribute('data-teacher-id');
+            var day = button.getAttribute('data-day');
+            var time = button.getAttribute('data-time');
+            var room = button.getAttribute('data-room');
+
+            // Update modal title
+            document.getElementById('editCourseModalLabel').textContent = 'Edit Course: ' + courseTitle;
+
+            // Set hidden course id
+            document.getElementById('editCourseId').value = courseId;
+
+            // Set teacher
+            document.getElementById('editTeacherSelect').value = teacherId || '';
+
+            // Set schedule
+            document.getElementById('editDay').value = day || '';
+            document.getElementById('editTime').value = time || '';
+            document.getElementById('editRoom').value = room || '';
+        });
+    }
+});
+
+function saveEdit(e) {
+    e.preventDefault();
+    var courseId = document.getElementById('editCourseId').value;
+    var teacherId = document.getElementById('editTeacherSelect').value;
+    var day = document.getElementById('editDay').value;
+    var time = document.getElementById('editTime').value;
+    var room = document.getElementById('editRoom').value;
+
+    if (!courseId) { alert('Course ID missing'); return false; }
+
+    var csrfToken = '<?= csrf_hash() ?>';
+    var btn = document.getElementById('saveEditBtn');
+    var originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = 'Saving...';
+
+    // Count expected calls
+    var expectedCalls = 0;
+    var completedCalls = 0;
+    var successCount = 0;
+    var errorMessage = '';
+
+    if (teacherId && teacherId !== '') {
+        expectedCalls++;
+    }
+    if (day && day !== '' && time && time !== '' && room && room.trim() !== '') {
+        expectedCalls++;
+    }
+
+    if (expectedCalls === 0) {
+        // Nothing to update
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+        alert('No changes to save');
+        return false;
+    }
+
+    // Assign teacher if selected
+    if (teacherId && teacherId !== '') {
+        callAssignTeacher(courseId, teacherId, csrfToken, function(success, message) {
+            completedCalls++;
+            if (success) successCount++;
+            else errorMessage += 'Teacher assignment: ' + message + '\n';
+            finishIfDone();
+        });
+    }
+
+    // Save schedule if filled
+    if (day && day !== '' && time && time !== '' && room && room.trim() !== '') {
+        callSaveSchedule(courseId, day, time, room, csrfToken, function(success, message) {
+            completedCalls++;
+            if (success) successCount++;
+            else errorMessage += 'Schedule: ' + message + '\n';
+            finishIfDone();
+        });
+    }
+
+    function finishIfDone() {
+        if (completedCalls >= expectedCalls) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+            if (successCount === expectedCalls) {
+                alert('Course updated successfully!');
+                $('#editCourseModal').modal('hide');
+                location.reload();
+            } else {
+                alert('Errors occurred:\n' + errorMessage);
+            }
+        }
+    }
+}
+
+function callAssignTeacher(courseId, teacherId, csrfToken, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?= base_url('course/assignTeacher') ?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        callback(true, '');
+                    } else {
+                        callback(false, response.message || 'Failed to assign teacher');
+                    }
+                } catch(e) {
+                    callback(false, 'Error parsing response: ' + e.message);
+                }
+            } else {
+                callback(false, 'Server error: ' + xhr.status + ' ' + xhr.statusText);
+            }
+        }
+    };
+    xhr.send('course_id=' + encodeURIComponent(courseId) + '&teacher_id=' + encodeURIComponent(teacherId));
+}
+
+function callSaveSchedule(courseId, day, time, room, csrfToken, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', '<?= base_url('course/saveSchedule') ?>', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('X-CSRF-TOKEN', csrfToken);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                try {
+                    var response = JSON.parse(xhr.responseText);
+                    if (response.success) {
+                        callback(true, '');
+                    } else {
+                        callback(false, response.message || 'Failed to save schedule');
+                    }
+                } catch(e) {
+                    callback(false, 'Error parsing response: ' + e.message);
+                }
+            } else {
+                callback(false, 'Server error: ' + xhr.status + ' ' + xhr.statusText);
+            }
+        }
+    };
+    xhr.send('course_id=' + encodeURIComponent(courseId) + '&day=' + encodeURIComponent(day) + '&time=' + encodeURIComponent(time) + '&room=' + encodeURIComponent(room));
+}
+</script>
 
 <!-- Teacher Dashboard-->
 <?php elseif ($userRole === 'teacher'): ?>
