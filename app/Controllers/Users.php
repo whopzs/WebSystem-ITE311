@@ -18,10 +18,28 @@ class Users extends BaseController
 
         $currentUserId = session()->get('user_id');
 
-        $nonAdminUsers = $userModel->where('role !=', 'admin')->findAll();
-        $otherAdminUsers = $userModel->where('role', 'admin')->where('id !=', $currentUserId)->findAll();
+        $query = $userModel->where('(role != "admin" OR (role = "admin" AND id != ' . $currentUserId . '))');
 
-        $data['users'] = array_merge($nonAdminUsers, $otherAdminUsers);
+        // Get search parameters
+        $searchName = $this->request->getGet('name');
+        $searchEmail = $this->request->getGet('email');
+        $searchRole = $this->request->getGet('role');
+
+        if (!empty($searchName)) {
+            $query->like('name', $searchName);
+        }
+        if (!empty($searchEmail)) {
+            $query->like('email', $searchEmail);
+        }
+        if (!empty($searchRole) && $searchRole !== 'all') {
+            $query->where('role', $searchRole);
+        }
+
+        $data['users'] = $query->findAll();
+
+        $data['searchName'] = $searchName;
+        $data['searchEmail'] = $searchEmail;
+        $data['searchRole'] = $searchRole;
 
         return view('users/index', $data);
     }

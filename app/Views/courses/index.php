@@ -25,6 +25,21 @@
 
 <!-- Admin Dashboard-->
 <?php if ($userRole === 'admin'): ?>
+
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form id="adminSearchForm" class="d-flex">
+            <div class="input-group">
+                <input type="text" id="adminSearchInput" class="form-control"
+                    placeholder="Search courses..." name="search_term">
+                <button class="btn btn-outline-maroon" type="submit">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- Course Table -->
 <div class="row">
     <div class="col-12">
@@ -48,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="adminCoursesContainer">
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
@@ -510,6 +525,20 @@
 <!-- Teacher Dashboard-->
 <?php elseif ($userRole === 'teacher'): ?>
 
+<div class="row mb-4">
+    <div class="col-md-6">
+        <form id="teacherSearchForm" class="d-flex">
+            <div class="input-group">
+                <input type="text" id="teacherSearchInput" class="form-control"
+                    placeholder="Search courses..." name="search_term">
+                <button class="btn btn-outline-maroon" type="submit">
+                    <i class="bi bi-search"></i> Search
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <!-- My Courses -->
 <div class="row">
     <div class="col-12">
@@ -522,7 +551,7 @@
                     </button>
                 </div>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="teacherCoursesContainer">
                 <div class="table-responsive">
                     <table class="table table-bordered" width="100%" cellspacing="0">
                         <thead>
@@ -836,7 +865,7 @@ function rejectEnrollment(enrollmentId, courseId) {
 function showAlert(type, message) {
     var alertHtml = '<div class="alert alert-' + type + ' alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x" style="z-index: 1050;" role="alert">' +
         message +
-        '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>' +
+        '<button type="button class="btn-close" data-bs-dismiss="alert"></button>' +
         '</div>';
     $('body').append(alertHtml);
     setTimeout(function() {
@@ -844,6 +873,93 @@ function showAlert(type, message) {
     }, 5000);
 
 }
+
+$(document).ready(function() {
+    var originalTeacherTableHtml = $('#teacherCoursesContainer .table-responsive').html();
+
+    // Client-side filtering for teacher table
+    $('#teacherSearchInput').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#teacherCoursesContainer tbody tr').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // Server-side search for teachers
+    $('#teacherSearchForm').on('submit', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#teacherSearchInput').val().trim();
+
+        if (searchTerm === '') {
+            $('#teacherCoursesContainer .table-responsive').html(originalTeacherTableHtml);
+            // Re-bind click events for view course buttons
+            bindViewCourseEvents();
+            return;
+        }
+
+        $.get('<?= base_url('course/search') ?>', { search_term: searchTerm }, function(data) {
+            if (data.length > 0) {
+                var tableHtml = `
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Students</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+                data.forEach(function(course) {
+                    tableHtml += `
+                        <tr>
+                            <td>${course.title}</td>
+                            <td>
+                                ${course.students}
+                                ${course.pending_count > 0 ? '<span class="badge ms-2" style="background-color: maroon; color: white;" title="Pending enrollments">' + course.pending_count + ' pending</span>' : ''}
+                            </td>
+                            <td>
+                                <span class="badge" style="background-color: #800000; color: white;">
+                                    ${course.status ? course.status.charAt(0).toUpperCase() + course.status.slice(1) : 'Active'}
+                                </span>
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-sm view-course-btn" style="background-color: maroon; color: white; border: 1px solid maroon;"
+                                    data-bs-toggle="modal" data-bs-target="#viewCourseModal"
+                                    data-course-id="${course.id}"
+                                    data-course-title="${course.title}"
+                                    data-course-number="${course.course_number || ''}"
+                                    data-course-description="${course.description || ''}"
+                                    data-course-day="${course.day || ''}"
+                                    data-course-time="${course.time || ''}"
+                                    data-course-room="${course.room || ''}"
+                                    data-course-students="${course.students}"
+                                    data-course-status="${course.status || 'active'}">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+                tableHtml += '</tbody></table>';
+                $('#teacherCoursesContainer .table-responsive').html(tableHtml);
+                bindViewCourseEvents();
+            } else {
+                $('#teacherCoursesContainer .table-responsive').html(`
+                    <div class="text-center">
+                        <p class="text-muted">No courses found matching your search.</p>
+                    </div>
+                `);
+            }
+        });
+    });
+
+    function bindViewCourseEvents() {
+        $('.view-course-btn').off('click').on('click', function() {
+        });
+    }
+});
 </script>
 
 <!-- Student Dashboard-->
@@ -1392,6 +1508,98 @@ $(document).ready(function() {
                 alertDiv.show();
                 console.error(xhr.responseText);
             }
+        });
+    });
+});
+
+// Admin search functionality (copied from student search pattern)
+$(document).ready(function() {
+    var originalAdminTableHtml = $('#adminCoursesContainer .table-responsive').html();
+
+    // Client-side filtering for admin table
+    $('#adminSearchInput').on('keyup', function() {
+        var value = $(this).val().toLowerCase();
+        $('#adminCoursesContainer tbody tr').filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+        });
+    });
+
+    // Server-side search with AJAX (based on student search pattern)
+    $('#adminSearchForm').on('submit', function(e) {
+        e.preventDefault();
+        var searchTerm = $('#adminSearchInput').val().trim();
+
+        if (searchTerm === '') {
+            $('#adminCoursesContainer .table-responsive').html(originalAdminTableHtml);
+            // Re-bind click events for view course buttons
+            bindViewCourseEvents();
+            return;
+        }
+
+        $.get('<?= base_url('course/search') ?>', { search_term: searchTerm }, function(data) {
+            $('#adminCoursesContainer .table-responsive').empty();
+
+            if (data && data.length > 0) {
+                var tableHtml = `
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Description</th>
+                                <th>Teacher</th>
+                                <th>Schedule</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                `;
+
+                $.each(data, function(index, course) {
+                    var teacherName = course.teacher_name || '<span class="text-muted">Not assigned</span>';
+                    var scheduleText = course.schedule_text || '<span class="text-muted">Not scheduled</span>';
+
+                    tableHtml += `
+                        <tr>
+                            <td>${course.title || ''}</td>
+                            <td>${course.description ? course.description.substring(0, 100) + (course.description.length > 100 ? '...' : '') : ''}</td>
+                            <td>${teacherName}</td>
+                            <td>${scheduleText}</td>
+                            <td>
+                                <button type="button" class="btn btn-sm view-course-btn" style="background-color: maroon; color: white; border: 1px solid maroon;"
+                                    data-bs-toggle="modal" data-bs-target="#viewCourseModal"
+                                    data-course-id="${course.id}"
+                                    data-course-title="${course.title || ''}"
+                                    data-course-number="${course.course_number || ''}"
+                                    data-course-description="${course.description || ''}"
+                                    data-course-day="${course.day || ''}"
+                                    data-course-time="${course.time || ''}"
+                                    data-course-room="${course.room || ''}"
+                                    data-course-students="${course.students || 0}"
+                                    data-course-status="${course.status || 'active'}">
+                                    View
+                                </button>
+                            </td>
+                        </tr>
+                    `;
+                });
+
+                tableHtml += '</tbody></table>';
+                $('#adminCoursesContainer .table-responsive').html(tableHtml);
+                // Re-bind click events for view course buttons
+                bindViewCourseEvents();
+            } else {
+                $('#adminCoursesContainer .table-responsive').html(`
+                    <div class="text-center">
+                        <p class="text-muted">No courses found matching your search.</p>
+                    </div>
+                `);
+            }
+        }).fail(function() {
+            $('#adminCoursesContainer .table-responsive').html(`
+                <div class="text-center text-danger">
+                    <p>Error: Unable to search courses.</p>
+                </div>
+            `);
         });
     });
 });

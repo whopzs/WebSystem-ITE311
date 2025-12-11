@@ -22,6 +22,37 @@
                     <button class="btn btn-sm maroon-btn text-white" onclick="addUser()">Add User <i class="bi bi-plus-circle ms-1"></i></button>
                 </div>
                 <div class="card-body">
+                    <!-- Search Form -->
+                    <div class="row mb-3">
+                        <div class="col-12">
+                            <form method="GET" action="" class="row g-3 align-items-end">
+                                <div class="col-md-3">
+                                    <label for="name" class="form-label">Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" value="<?= esc($searchName ?? '') ?>" placeholder="Search by name">
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email" value="<?= esc($searchEmail ?? '') ?>" placeholder="Search by email">
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="role" class="form-label">Role</label>
+                                    <select class="form-select" id="role" name="role">
+                                        <option value="all" <?= (!isset($searchRole) || $searchRole == 'all') ? 'selected' : '' ?>>All Roles</option>
+                                        <option value="student" <?= (isset($searchRole) && $searchRole == 'student') ? 'selected' : '' ?>>Student</option>
+                                        <option value="teacher" <?= (isset($searchRole) && $searchRole == 'teacher') ? 'selected' : '' ?>>Teacher</option>
+                                        <option value="admin" <?= (isset($searchRole) && $searchRole == 'admin') ? 'selected' : '' ?>>Admin</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-2">
+                                    <button type="submit" class="btn maroon-btn">Search</button>
+                                </div>
+                                <div class="col-md-2">
+                                    <a href="<?= current_url() ?>" class="btn maroon-btn">Clear</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                     <?php if (empty($users)): ?>
                         <div class="text-center text-muted">
                             <i class="bi bi-people fa-2x mb-3 text-muted"></i>

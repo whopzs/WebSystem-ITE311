@@ -208,7 +208,6 @@ class Course extends BaseController
             return $this->response->setStatusCode(400)->setJSON(['success' => false, 'message' => 'Course ID is required']);
         }
 
-        // Verify that the teacher owns the course
         if ($role === 'teacher') {
             $courseModel = new CourseModel();
             $course = $courseModel->find($course_id);
@@ -263,12 +262,50 @@ class Course extends BaseController
             } else {
                 $courses = [];
             }
-        } else {
+        } elseif ($role === 'teacher') {
+
+            $courseModel->where('instructor_id', $user_id);
             if (!empty($searchTerm)) {
+                $courseModel->groupStart();
                 $courseModel->like('title', $searchTerm);
                 $courseModel->orLike('description', $searchTerm);
+                $courseModel->groupEnd();
             }
             $courses = $courseModel->findAll();
+
+            $enrollmentModel = new EnrollmentModel();
+            foreach ($courses as &$course) {
+                $approvedCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'approved')->countAllResults();
+                $pendingCount = $enrollmentModel->where('course_id', $course['id'])->where('status', 'pending')->countAllResults();
+                $course['students'] = $approvedCount;
+                $course['pending_count'] = $pendingCount;
+                $course['status'] = $course['status'] ?? 'active';
+            }
+        } else {
+            error_log("DEBUG: Admin search - searchTerm: '" . $searchTerm . "', role: " . $role);
+            if (!empty($searchTerm)) {
+                error_log("DEBUG: Admin search - building query with search term");
+                $courseModel->groupStart();
+                $courseModel->like('title', $searchTerm);
+                $courseModel->orLike('description', $searchTerm);
+                $courseModel->groupEnd();
+            }
+            $courses = $courseModel->findAll();
+            error_log("DEBUG: Admin search - found " . count($courses) . " courses");
+
+            $userModel = new \App\Models\UserModel();
+            foreach ($courses as &$course) {
+                if (!empty($course['instructor_id'])) {
+                    $teacher = $userModel->find($course['instructor_id']);
+                    $course['teacher_name'] = $teacher ? $teacher['name'] : 'Not assigned';
+                } else {
+                    $course['teacher_name'] = 'Not assigned';
+                }
+                $course['schedule_text'] = ($course['day'] && $course['time']) ?
+                    $course['day'] . ' - ' . $course['time'] . ($course['room'] ? ' (' . $course['room'] . ')' : '') :
+                    'Not scheduled';
+            }
+            error_log("DEBUG: Admin search - returning " . count($courses) . " processed courses");
         }
 
         if ($this->request->isAJAX()) {
@@ -294,7 +331,6 @@ class Course extends BaseController
         $title = $this->request->getPost('title');
         $courseNumber = $this->request->getPost('course_number');
 
-        // Auto-generate course number if not provided
         if (empty($courseNumber)) {
             $courseNumber = $this->generateCourseNumber($title);
         }
@@ -307,8 +343,6 @@ class Course extends BaseController
             'term' => $this->request->getPost('term'),
             'academic_year' => $this->request->getPost('academic_year'),
         ];
-        // Note: instructor_id is not included - will be assigned separately via assign teacher feature
-        // The column is now nullable after migration
 
         $courseId = $courseModel->insert($data);
 
@@ -357,7 +391,6 @@ class Course extends BaseController
             return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
         }
 
-        // Check for teacher schedule conflicts if the course has a teacher assigned
         if (!empty($course['instructor_id']) && $day && $time) {
             $conflictingCourses = $courseModel
                 ->where('instructor_id', $course['instructor_id'])
@@ -375,7 +408,6 @@ class Course extends BaseController
             }
         }
 
-        // Check for room schedule conflicts if room, day, and time are provided
         if (!empty($room) && $day && $time) {
             $roomConflictingCourses = $courseModel
                 ->where('room', $room)
@@ -399,13 +431,11 @@ class Course extends BaseController
             'room' => $room,
         ];
 
-        // Update the specific course with the schedule
         try {
             $updated = $courseModel->update($courseId, $data);
-            
-            // Check if update was successful or if there were any errors
+
             if ($updated !== false) {
-                // Verify the update by fetching the course again
+
                 $updatedCourse = $courseModel->find($courseId);
                 if ($updatedCourse && 
                     $updatedCourse['day'] === $day && 
@@ -471,8 +501,6 @@ class Course extends BaseController
                     ]);
                 }
                 
-                // Update returned false - might mean no changes or error
-                // Try to verify if data is already correct
                 $currentCourse = $courseModel->find($courseId);
                 if ($currentCourse && 
                     $currentCourse['day'] === $day && 
@@ -540,7 +568,6 @@ class Course extends BaseController
             return $this->response->setStatusCode(404)->setJSON(['success' => false, 'message' => 'Course not found']);
         }
 
-        // Update course with teacher assignment only (no schedule)
         $updateData = [
             'instructor_id' => $teacherId,
         ];
@@ -548,7 +575,6 @@ class Course extends BaseController
         $updated = $courseModel->update($courseId, $updateData);
 
         if ($updated) {
-            // Notify the teacher about the assignment
             $notificationModel = new NotificationModel();
             $userModel = new \App\Models\UserModel();
             $teacher = $userModel->find($teacherId);
@@ -589,7 +615,7 @@ class Course extends BaseController
         $data = [
             'userRole' => $role,
             'userEmail' => $session->get('userEmail'),
-            'teachers' => []  // default empty
+            'teachers' => [] 
         ];
 
         if ($role === 'admin') {
@@ -597,10 +623,36 @@ class Course extends BaseController
             $courseModel = new \App\Models\CourseModel();
             $user_id = $session->get('user_id');
 
+            $searchTerm = $this->request->getGet('search_term');
+
             $data['totalUsers'] = $userModel->countAllResults();
             $data['courseCount'] = $courseModel->countAllResults();
 
+            if (!empty($searchTerm)) {
+                error_log("DEBUG: Admin index search - searchTerm: '" . $searchTerm . "'");
+                $courseModel->groupStart();
+                $courseModel->like('title', $searchTerm);
+                $courseModel->orLike('description', $searchTerm);
+                $courseModel->groupEnd();
+            }
+
             $courses = $courseModel->findAll();
+            error_log("DEBUG: Admin index search - found " . count($courses) . " courses");
+
+            // Add teacher information for each course
+            foreach ($courses as &$course) {
+                if (!empty($course['instructor_id'])) {
+                    $teacher = $userModel->find($course['instructor_id']);
+                    $course['teacher_name'] = $teacher ? $teacher['name'] : 'Not assigned';
+                } else {
+                    $course['teacher_name'] = 'Not assigned';
+                }
+                $course['schedule_text'] = ($course['day'] && $course['time']) ?
+                    $course['day'] . ' - ' . $course['time'] . ($course['room'] ? ' (' . $course['room'] . ')' : '') :
+                    'Not scheduled';
+            }
+
+            error_log("DEBUG: Admin index processed " . count($courses) . " courses for display");
             $data['courses'] = $courses ? $courses : [];
 
             $teachers = $userModel->where('role', 'teacher')->findAll();
@@ -668,7 +720,6 @@ class Course extends BaseController
             // Get all courses
             $allCourses = $courseModel->findAll();
 
-            // Get all enrollment IDs (approved, pending, rejected) to exclude from available courses
             $allEnrollments = $enrollmentModel->where('user_id', $user_id)->findAll();
             $enrolledCourseIds = array_column($allEnrollments, 'course_id');
 
@@ -691,27 +742,24 @@ class Course extends BaseController
 
     private function generateCourseNumber($title)
     {
-        // Clean and process the title
         $cleanTitle = strtoupper(trim($title));
-        $cleanTitle = preg_replace('/[^A-Z\s]/', '', $cleanTitle); // Remove non-letter characters except spaces
-        $words = array_filter(explode(' ', $cleanTitle)); // Split into words and remove empty entries
+        $cleanTitle = preg_replace('/[^A-Z\s]/', '', $cleanTitle); 
+        $words = array_filter(explode(' ', $cleanTitle)); 
 
-        // Generate acronym based on word count
         if (count($words) >= 3) {
-            // Take first 3 words' first letters plus a number
+
             $acronym = substr($words[0], 0, 1) . substr($words[1], 0, 1) . substr($words[2], 0, 1) . rand(1, 9);
         } elseif (count($words) === 2) {
-            // Take first 2 words' first letters plus 2-digit number
+            
             $acronym = substr($words[0], 0, 1) . substr($words[1], 0, 1) . rand(10, 99);
         } elseif (count($words) === 1) {
-            // Take first 3 letters of single word
+           
             $acronym = substr($words[0], 0, 3);
         } else {
-            // Fallback
+            
             $acronym = 'CN' . rand(100, 999);
         }
 
-        // Ensure uniqueness by checking database
         $courseModel = new \App\Models\CourseModel();
         $originalAcronym = $acronym;
         $counter = 1;
@@ -719,7 +767,7 @@ class Course extends BaseController
         while ($courseModel->where('course_number', $acronym)->countAllResults() > 0) {
             $acronym = $originalAcronym . $counter;
             $counter++;
-            if ($counter > 99) { // Prevent infinite loop
+            if ($counter > 99) { 
                 $acronym = $originalAcronym . rand(100, 999);
                 break;
             }
