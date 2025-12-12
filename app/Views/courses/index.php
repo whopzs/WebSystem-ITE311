@@ -142,6 +142,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="scheduleAlert" class="alert alert-danger" style="display: none;"></div>
                 <form id="scheduleForm">
                     <input type="hidden" id="scheduleCourseId" name="course_id">
                     <div class="mb-3" id="courseSelectorContainer">
@@ -208,15 +209,41 @@
                 e.preventDefault();
                 e.stopPropagation();
                 
+                var alertDiv = document.getElementById('scheduleAlert');
+                alertDiv.style.display = 'none';
+                
                 var courseId = document.getElementById('scheduleCourseId').value || document.getElementById('scheduleCourseSelect').value;
                 var day = document.getElementById('scheduleDay').value;
                 var time = document.getElementById('scheduleTime').value;
                 var room = document.getElementById('scheduleRoom').value;
                 
-                if (!courseId) { alert('Please select a course'); return false; }
-                if (!day) { alert('Please select a day'); return false; }
-                if (!time) { alert('Please select a time'); return false; }
-                if (!room || room.trim() === '') { alert('Please enter a room'); return false; }
+                if (!courseId) { 
+                    alertDiv.innerHTML = 'Please select a course';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!day) { 
+                    alertDiv.innerHTML = 'Please select a day';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!time) { 
+                    alertDiv.innerHTML = 'Please select a time';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!room || room.trim() === '') { 
+                    alertDiv.innerHTML = 'Please enter a room';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                // Check for special characters in room (allow letters, numbers, spaces, and hyphens)
+                var roomPattern = /^[a-zA-Z0-9\s\-]+$/;
+                if (!roomPattern.test(room)) { 
+                    alertDiv.innerHTML = 'Room should not contain special characters. Only letters, numbers, spaces, and hyphens are allowed.';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
                 
                 var csrfToken = document.querySelector('meta[name="X-CSRF-TOKEN"]')?.getAttribute('content') || '';
                 var btn = document.getElementById('saveScheduleBtn');
@@ -277,6 +304,7 @@
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                <div id="createCourseAlert" class="alert alert-danger" style="display: none;"></div>
                 <form id="createCourseForm">
                     <div class="mb-3">
                         <label for="courseTitle" class="form-label">Course Title</label>
@@ -326,17 +354,54 @@
                 e.preventDefault();
                 e.stopPropagation();
                 
+                var alertDiv = document.getElementById('createCourseAlert');
+                alertDiv.style.display = 'none';
+                
                 var title = document.getElementById('courseTitle').value;
                 var description = document.getElementById('courseDescription').value;
                 var semester = document.getElementById('semester').value;
                 var term = document.getElementById('term').value;
                 var academicYear = document.getElementById('academicYear').value;
                 
-                if (!title || title.trim() === '') { alert('Please enter a course title'); return false; }
-                if (!description || description.trim() === '') { alert('Please enter a description'); return false; }
-                if (!semester) { alert('Please select a semester'); return false; }
-                if (!term) { alert('Please select a term'); return false; }
-                if (!academicYear) { alert('Please select an academic year'); return false; }
+                if (!title || title.trim() === '') { 
+                    alertDiv.innerHTML = 'Please enter a course title';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                // Check for special characters in course title (allow letters, numbers, spaces, hyphens, and periods)
+                var titlePattern = /^[a-zA-Z0-9\s\-\.]+$/;
+                if (!titlePattern.test(title)) { 
+                    alertDiv.innerHTML = 'Course title should not contain special characters. Only letters, numbers, spaces, hyphens, and periods are allowed.';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!description || description.trim() === '') { 
+                    alertDiv.innerHTML = 'Please enter a description';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                // Check for special characters in description (allow letters, numbers, spaces, commas, hyphens, and periods)
+                var descriptionPattern = /^[a-zA-Z0-9\s\-\.\,]+$/;
+                if (!descriptionPattern.test(description)) { 
+                    alertDiv.innerHTML = 'Description should not contain special characters. Only letters, numbers, spaces, commas, hyphens, and periods are allowed.';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!semester) { 
+                    alertDiv.innerHTML = 'Please select a semester';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!term) { 
+                    alertDiv.innerHTML = 'Please select a term';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
+                if (!academicYear) { 
+                    alertDiv.innerHTML = 'Please select an academic year';
+                    alertDiv.style.display = 'block';
+                    return false; 
+                }
                 
                 var csrfToken = document.querySelector('meta[name="X-CSRF-TOKEN"]')?.getAttribute('content') || '';
                 var btn = document.getElementById('createCourseBtn');
@@ -1641,6 +1706,13 @@ $(document).ready(function() {
         $('#scheduleDay').val('');
         $('#scheduleTime').val('');
         $('#scheduleRoom').val('');
+        $('#scheduleAlert').hide();
+    });
+    
+    // Reset create course modal when closed
+    $('#createCourseModal').on('hidden.bs.modal', function () {
+        $('#createCourseForm')[0].reset();
+        $('#createCourseAlert').hide();
     });
 
     // Update hidden course_id when dropdown changes
